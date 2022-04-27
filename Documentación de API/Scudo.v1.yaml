@@ -1,0 +1,2191 @@
+openapi: 3.0.0
+info:
+  title: Scudo
+  version: '1.0'
+  description: |-
+    ## Secuencia de SCUDO
+
+    ![Secuencia API Scudo-Página-2.drawio.png](https://stoplight.io/api/v1/projects/cHJqOjE1MDQz/images/KsTRSpQNhcU)
+
+
+    ## Conceptos
+
+    ### Motor de reglas
+    Sistema que permite analizar transacciones a través de reglas y grupos de reglas con flujos dinámicos definidos por el cliente.
+
+    ### Riesgo Historico de Placetopay
+    Consiste en realizar un análisis histórico de las compras que ha tenido el usuario pagando a través de la plataforma Placetopay. Con esta información, el sistema de control de fraude genera un Score de riesgo y, dependiendo de la parametrización definida por el cliente, define si la transacción puede ser procesada o requiere validación por otros módulos de seguridad.
+
+    ### Riesgo central
+    Permite validar si la tarjeta que están utilizando para la compra está asociada o no al documento de identificación del usuario, adicionalmente valida números telefónicos y correos electrónicos registrados en el pago contra la información que se encuentra en centros de riesgo generando un Score que permite al sistema decidir si la transacción es procesada o si continúa con otros módulos de seguridad. Este módulo solo aplica para Colombia.
+
+    ### Puntaje de riesgo externo
+    Valida la reputación del correo electrónico, direcciones IP, nombres, teléfonos y otros asociados a la transacción con el fin de identificar correlaciones con operaciones fraudulentas en otros sitios, generando un puntaje de riesgo que permite la toma de decisiones del sistema.
+
+    ### Puntaje de riesgo internacional
+    Valida la información de los usuarios contra motores de riesgo internacionales, permitiendo la validación de seguridad a través de sistemas de aprendizaje automático, generando un puntaje de riesgo basado en el análisis de múltiples variables asociadas con el comportamiento de pago de los usuarios en todo el mundo.
+
+    ### Acceso a la consola administrativa
+    A través de nuestra plataforma Placetopay es posible configurar el sistema de control de fraude, visualizar transacciones, reglas aplicadas, usuarios, crear invitaciones, generar reportes y estadísticas.
+servers:
+  - description: UAT
+    url: 'https://scudo-uat.placetopay.ws'
+paths:
+  /api/v1/validate:
+    post:
+      summary: Validar transacción
+      operationId: post-validate
+      description: Este endpoint validará una transacción de acuerdo con las reglas que se definieron previamente.
+      parameters:
+        - schema:
+            type: string
+            example: application/json;charset=UTF-8
+          in: header
+          name: Content-Type
+          required: true
+        - schema:
+            type: string
+            example: H0zMsPiLzegkYMFJxAuKJhUsyEimYstc
+          in: header
+          name: Api-Key
+          description: Este parámetro contiene la clave de api proporcionada por Evertec
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                locale:
+                  type: string
+                  description: 2 letras idioma y 2 letras país (es_CO)
+                  pattern: '^[a-z]{2}_[A-Z]{2}$'
+                  example: es_CO
+                payer:
+                  $ref: '#/components/schemas/Person'
+                buyer:
+                  $ref: '#/components/schemas/Person'
+                shipping:
+                  $ref: '#/components/schemas/Person'
+                payment:
+                  $ref: '#/components/schemas/Payment'
+                instrument:
+                  $ref: '#/components/schemas/Instrument'
+                ip_address:
+                  type: string
+                  description: Dirección IP del cliente
+                user_agent:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: Agente de usuario del cliente
+              required:
+                - payer
+                - payment
+                - instrument
+                - ip_address
+                - user_agent
+            examples:
+              ejemplo exitoso:
+                value:
+                  locale: es_CO
+                  payer:
+                    document: '555777888'
+                    document_type: CC
+                    first_name: jhon
+                    last_name: doe
+                    email: john@example.com
+                    mobile: '5557788'
+                    phone: '2223344'
+                    address:
+                      address: 199-129 E 43rd St
+                      state: New York
+                      city: New York
+                      postal_code: '10017'
+                      country: US
+                  buyer:
+                    document: '555777888'
+                    document_type: CC
+                    first_name: jhon
+                    last_name: doe
+                    email: jhon@example.com
+                    mobile: '5557788'
+                    phone: '2223344'
+                    address:
+                      address: 199-129 E 43rd St
+                      city: New York
+                      state: New York
+                      postal_code: '10017'
+                      country: US
+                  shipping:
+                    document: '555777888'
+                    document_type: CC
+                    first_name: jane
+                    last_name: doe
+                    email: jane@exampe.com
+                    mobile: '4445566'
+                    phone: '9990011'
+                    address:
+                      address: 199-129 E 43rd St
+                      city: New York
+                      state: New York
+                      postal_code: '10017'
+                      country: US
+                  payment:
+                    reference: 1567e989-86a1-41ca-b208-ca1acd694856
+                    amount:
+                      currency: USD
+                      total: 355
+                  instrument:
+                    card:
+                      pan_hash: 9bbef19476623ca56c17da75fd57734dbf82530686043a6e491c6d71befe8f6e
+                      expiration_date: 12/22
+                      bin: '411111'
+                      last_4: '1111'
+                  ip_address: 127.0.0.1
+                  user_agent: 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.3'
+              ejemplo campo faltante:
+                value:
+                  locale: es_CO
+                  payer:
+                    document: '555777888'
+                    document_type: CC
+                    first_name: jhon
+                    last_name: doe
+                    email: john@example.com
+                    mobile: '5557788'
+                    phone: '2223344'
+                    address:
+                      address: 199-129 E 43rd St
+                      city: New York
+                      postal_code: '10017'
+                      country: US
+                  buyer:
+                    document: '555777888'
+                    document_type: CC
+                    first_name: jhon
+                    last_name: doe
+                    email: jhon@example.com
+                    mobile: '5557788'
+                    phone: '2223344'
+                    address:
+                      address: 199-129 E 43rd St
+                      city: New York
+                      postal_code: '10017'
+                      country: US
+                  shipping:
+                    document: '555777888'
+                    document_type: CC
+                    first_name: jane
+                    last_name: doe
+                    email: jane@exampe.com
+                    mobile: '4445566'
+                    phone: '9990011'
+                    address:
+                      address: 199-129 E 43rd St
+                      city: New York
+                      postal_code: '10017'
+                      country: US
+                  instrument:
+                    card:
+                      pan_hash: 9bbef19476623ca56c17da75fd57734dbf82530686043a6e491c6d71befe8f6e
+                      expiration_date: 12/22
+                      bin: '411111'
+                      last_4: '1111'
+                  ip_address: 127.0.0.1
+                  user_agent: 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.3'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
+                  data:
+                    type: object
+                    description: Objeto que agrupa los resultados de la validación
+                    nullable: true
+                    properties:
+                      id:
+                        type: string
+                        description: Id de la validación de scudo
+                      transaction:
+                        type: object
+                        description: Objeto que agrupa la información de la transacción del cliente
+                        required:
+                          - reference
+                        properties:
+                          reference:
+                            type: string
+                            maxLength: 40
+                            description: Referencia de la transacción del cliente
+                      rules:
+                        type: array
+                        description: Reglas ejecutadas en la validación
+                        items:
+                          type: object
+                          description: Objeto que agrupa la ejecución de una regla
+                          properties:
+                            action:
+                              type: string
+                              enum:
+                                - continue_with_next_rule
+                                - reject_transaction
+                                - manual_transaction
+                                - process_transaction
+                                - continue_with_specific_rule
+                                - continue_with_specific_ruleset
+                              description: Acción de la regla
+                            name:
+                              type: string
+                              description: Nombre de la regla
+                            rule_code:
+                              type: string
+                              enum:
+                                - emailage
+                                - kount
+                                - historical
+                                - transunion
+                                - allowed_countries_for_issuer_bank
+                                - exclude_country_match_for_issuers
+                                - allowed_countries_for_buyers
+                                - amount_by_client
+                                - number_of_transactions_by_client
+                                - number_of_cards_by_client
+                                - match_country_ip_and_issuer_bank
+                                - custom
+                                - amount_by_transaction
+                              description: Código de la regla
+                            type:
+                              enum:
+                                - filter
+                                - score
+                              type: string
+                              description: Tipo de la regla
+                            response:
+                              oneOf:
+                                - $ref: '#/components/schemas/Score'
+                                - $ref: '#/components/schemas/Filter'
+                              description: Objeto que agrupa el resultado de la regla ejecutada
+                          required:
+                            - name
+                            - rule_code
+                            - type
+                            - response
+                      action:
+                        type: object
+                        description: Objeto que agrupa la acción recomendada
+                        required:
+                          - name
+                          - performed_by
+                        properties:
+                          name:
+                            type: string
+                            enum:
+                              - reject_transaction
+                              - manual_transaction
+                              - process_transaction
+                            description: Acción recomendada de la validación
+                          performed_by:
+                            type: string
+                            description: Nombre de la regla que define la acción recomendada
+                          performed_by_code:
+                            type: string
+                            enum:
+                              - emailage
+                              - kount
+                              - historical
+                              - transunion
+                              - allowed_countries_for_issuer_bank
+                              - exclude_country_match_for_issuers
+                              - allowed_countries_for_buyers
+                              - amount_by_client
+                              - number_of_transactions_by_client
+                              - number_of_cards_by_client
+                              - match_country_ip_and_issuer_bank
+                              - custom
+                              - amount_by_transaction
+                            description: Código de la regla que define la acción recomendada
+                    required:
+                      - id
+                      - transaction
+                      - action
+              examples:
+                ejemplo exitoso:
+                  value:
+                    status:
+                      code: 1200
+                      name: successful
+                      message: La transacción se valida con éxito
+                    data:
+                      id: 5da0c6a0-bc88-4482-821f-13428d1d8bac
+                      transaction:
+                        reference: 75c7bcc7-93ab-41a9-9bc9-2cf18f4d5003
+                      action:
+                        name: process_transaction
+                        performed_by: Transunion
+                        performed_by_code: transunion
+                      rules:
+                        - action: continue_with_next_rule
+                          name: Paises permitidos según banco emisor
+                          rule_code: allowed_countries_for_issuer_bank
+                          type: filter
+                          response:
+                            match: null
+                            failed: true
+                        - action: continue_with_next_rule
+                          name: Excluir coincidencia de pais para emisores
+                          rule_code: exclude_country_match_for_issuers
+                          type: filter
+                          response:
+                            match: null
+                            failed: true
+                        - action: continue_with_next_rule
+                          name: Kount
+                          rule_code: kount
+                          type: score
+                          response:
+                            match: false
+                            failed: false
+                            score: '10'
+                            service_response:
+                              score: '10'
+                              decision: A
+                              decisionDescription: APPROVE
+                              deviceLayers: DF651ACF30..99CF09F417.E3D16F2CB7.061826EF2B
+                              userAgent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML like Gecko) Chrome/76.0.3809.100 Safari/537.36
+                              operativeSystem: Mac OS X 10.14.6
+                              screenResolution: 1050x1680
+                              ipAddress: 208.75.113.3
+                              ipLatitude: '43.6337'
+                              ipLongitude: '-116.2004'
+                              ipCountry: US
+                              ipState: Idaho
+                              ipCity: Boise
+                              ipProvider: PENDING
+                              fingerprint: 290D1C0172364AADAC25D9FD0B13D946
+                              language: en
+                              errors:
+                                - AUTH_ERR
+                                - MISSING_MODE
+                              quantityErrors: 0
+                              errorMessage: null
+                              isExecuted: true
+                        - action: continue_with_next_rule
+                          name: Monto por cliente
+                          rule_code: amount_by_client
+                          type: filter
+                          response:
+                            match: false
+                            failed: false
+                        - action: continue_with_next_rule
+                          name: Paises permitidos para compradores
+                          rule_code: allowed_countries_for_buyers
+                          type: filter
+                          response:
+                            match: false
+                            failed: false
+                        - action: continue_with_next_rule
+                          name: Número de tarjetas
+                          rule_code: number_of_cards_by_client
+                          type: filter
+                          response:
+                            match: false
+                            failed: false
+                        - action: continue_with_next_rule
+                          name: Número de transacciones
+                          rule_code: number_of_transactions_by_client
+                          type: filter
+                          response:
+                            match: false
+                            failed: false
+                        - action: continue_with_next_rule
+                          name: Forzar coincidencia de IP país y banco emisor
+                          rule_code: match_country_ip_and_issuer_bank
+                          type: filter
+                          response:
+                            match: null
+                            failed: true
+                        - action: continue_with_next_rule
+                          name: Histórico de transacciones
+                          rule_code: historical
+                          type: score
+                          response:
+                            match: false
+                            failed: false
+                            score: '320'
+                        - action: continue_with_next_rule
+                          name: Emailage
+                          rule_code: emailage
+                          type: score
+                          response:
+                            match: false
+                            failed: false
+                            score: '0'
+                            service_response:
+                              emailInformation:
+                                email: test@test.com
+                                age: ''
+                                country: US
+                                exists: 'Yes'
+                                status: Verified
+                                firstSeen: '2010-07-17T07:00:00Z'
+                                lastSeen: '2020-06-12T03:37:56Z'
+                                imageUrl: ''
+                                hits: null
+                                uniqueHits: '1'
+                                domain:
+                                  name: gmail.com
+                                  age: '1995-08-13T04:00:00Z'
+                                  category: Webmail
+                                  corporate: 'No'
+                                  exists: 'Yes'
+                                  company: Google
+                                  countryName: United States
+                                  riskLevel: '3'
+                                  riskLevelMessage: Moderate
+                                  relevantInfo: '508'
+                                  relevantInfoMessage: Valid Webmail Domain from United States
+                              ipInformation:
+                                ip: 127.0.0.1
+                                riskLevel: '1'
+                                riskLevelMessage: Very High
+                                isp: att services inc.
+                                country: United States
+                                region: alaska
+                                city: fairbanks
+                                latitude: '64.8363'
+                                longitude: '-147.715'
+                              score: '0'
+                              riskReason: '14'
+                              riskReasonMessage: Email Created at least 9.9 Years Ago
+                              riskStatus: '2'
+                              riskAdvice: '3'
+                              riskAdviceMessage: Lower Fraud Risk
+                              riskBand: '1'
+                              sourceIndustry: ''
+                              fraudType: ''
+                              lastFlaggedOn: ''
+                              returnCode: '0'
+                              returnMessage: ''
+                              isExecuted: true
+                        - action: continue_with_next_rule
+                          name: Transunion
+                          rule_code: transunion
+                          type: score
+                          response:
+                            match: false
+                            failed: false
+                            score: '995'
+        '422':
+          description: Unprocessable Entity (WebDAV)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
+                  data:
+                    type:
+                      - object
+                      - 'null'
+                    properties:
+                      id:
+                        type: string
+                      payment:
+                        type: object
+                        required:
+                          - reference
+                        properties:
+                          reference:
+                            type: string
+                      rules:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            type:
+                              enum:
+                                - filter
+                                - score
+                              type: string
+                            response:
+                              type: object
+                          required:
+                            - name
+                            - type
+                            - response
+                      action:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                          performed_by:
+                            type: string
+                    required:
+                      - id
+                      - payment
+              examples:
+                example-missing-param:
+                  value:
+                    status:
+                      code: 1201
+                      name: missing_required_fields
+                      message: 'Missing elements: [payment]'
+                    data: null
+                ejemplo reglas no encontradas:
+                  value:
+                    status:
+                      code: 1310
+                      name: rules_not_found
+                      message: 'reglas no encontradas, verifique la configuración del sitio'
+                    data: null
+    parameters: []
+  /api/v1/notify:
+    post:
+      summary: Notificar Validación
+      operationId: post-notify
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
+                  data:
+                    type: object
+                    description: Contiene las propiedades de la respuesta.
+                    required:
+                      - id
+                    properties:
+                      id:
+                        type: string
+                        description: Id de la validación notificada
+                      status:
+                        type: string
+                        enum:
+                          - rejected
+                          - approved
+                          - pending
+                          - canceled
+                          - refunded
+                          - chargeback
+                        description: Estado enviado en la petición
+                required:
+                  - status
+                  - data
+              examples:
+                ejemplo exitoso:
+                  value:
+                    status:
+                      code: 1200
+                      name: successful
+                      message: La transacción se notifica correctamente
+                    data:
+                      id: 81d1ed97-5bd2-4242-8015-12867fdb475a
+                      status: approved
+                ejemplo fallido no se puede cambiar el estado:
+                  value:
+                    status:
+                      code: 1350
+                      name: failed
+                      message: El estado real es (approved) y no se puede cambiar a (approved)
+                    data:
+                      id: 81d1ed97-5bd2-4242-8015-12867fdb475a
+                      status: approved
+                ejemplo no exitoso:
+                  value:
+                    status:
+                      code: 1301
+                      name: id_missmatch
+                      message: 'The id or reference, does not match in scudo'
+                    data: null
+          headers: {}
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
+                  data:
+                    type: 'null'
+              examples:
+                example-wrong-id:
+                  value:
+                    status:
+                      code: 1301
+                      name: id_missmatch
+                    data: null
+                example-wrong-status:
+                  value:
+                    status:
+                      code: 1202
+                      name: wrong_field_format
+                      message: 'Invalid elements: [transaction.status] (see endpoint documentation)'
+                    data: null
+                Cannot change status:
+                  value:
+                    status:
+                      code: 1350
+                      name: failed
+                      message: Actual status is approved and cannot be changed to approved
+                    data:
+                      id: 5bbf2fd2-7395-48c6-8799-49f6f326b894
+                      status: approved
+      description: 'Este endpoint actualizará el estado de una transacción Scudo validada previamente con el estado de la transacción del cliente. Una transacción que fue validada por Scudo devolverá una respuesta con una acción (según la configuración de las reglas), el cliente deberá notificar a Scudo cuál es el estado final de esta transacción (aprobado, rechazado, etc.). Es importante actualizar todas las transacciones de Scudo para una mejor coherencia de la información.'
+      parameters:
+        - schema:
+            type: string
+            example: application/json;charset=UTF-8
+          in: header
+          name: Content-Type
+          required: true
+        - schema:
+            type: string
+            example: H0zMsPiLzegkYMFJxAuKJhUsyEimYstc
+          in: header
+          name: Api-Key
+          required: true
+          description: Este parámetro contiene la clave de api proporcionada por Evertec
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: Id del resultado de la validación
+                  format: uuid
+                transaction:
+                  type: object
+                  description: Object that contains the transaction properties
+                  required:
+                    - reference
+                    - status
+                  properties:
+                    reference:
+                      type: string
+                      description: Referencia de la transacción del cliente
+                      example: f0ce88f8-bba3-11ea-b3de-0242ac130004
+                    status:
+                      description: El objeto define el estado de la transacción del cliente.
+                      type: object
+                      required:
+                        - name
+                      properties:
+                        name:
+                          type: string
+                          enum:
+                            - rejected
+                            - approved
+                            - pending
+                            - canceled
+                            - refunded
+                            - chargeback
+                          description: Estado de la transacción del cliente
+              required:
+                - id
+                - transaction
+            examples:
+              example-success:
+                value:
+                  id: a2ce48f8-bba3-11ea-b3de-0242ac13352b
+                  transaction:
+                    reference: f0ce88f8-bba3-11ea-b3de-0242ac130004
+                    status:
+                      name: approved
+        description: ''
+    parameters: []
+  '/api/v1/validations/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: Identificador de validación de scudo
+    get:
+      summary: Obtener Validación
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
+                  data:
+                    type: object
+                    description: Objeto que agrupa los resultados de la validación
+                    nullable: true
+                    properties:
+                      created_at:
+                        type: string
+                        description: Fecha de creación de la validación
+                      notified_at:
+                        type: string
+                        description: Fecha de notificacion de la validación
+                        nullable: true
+                      notified_status:
+                        type: string
+                        enum:
+                          - approved
+                          - canceled
+                          - chargeback
+                          - pending
+                          - refunded
+                          - rejected
+                        description: Estado final de la transacción
+                      id:
+                        type: string
+                        description: Identificador de la validación
+                      resolved:
+                        type: object
+                        description: Objeto que agrupa campos de una validacion de scudo con validacion manual
+                        nullable: true
+                        properties:
+                          resolved_at:
+                            type: string
+                            description: Fecha de resolución de la validación manual
+                          action:
+                            type: string
+                            description: Acción de resolución de la validación manual
+                          reason:
+                            type: string
+                            description: Razón de resolución de la validación manual
+                            nullable: true
+                          comments:
+                            type: string
+                            description: Comentarios de resolución de la validación manual
+                            nullable: true
+                      transaction:
+                        type: object
+                        description: Objeto que agrupa la información de la transacción del cliente
+                        properties:
+                          reference:
+                            type: string
+                            description: Referencia de la transacción del cliente
+                      action:
+                        type: object
+                        description: Objeto que agrupa la acción recomendada
+                        properties:
+                          name:
+                            type: string
+                            description: Acción recomendada de la validación
+                            enum:
+                              - reject_transaction
+                              - manual_transaction
+                              - process_transaction
+                          performed_by:
+                            type: string
+                            description: Nombre de la regla que define la acción recomendada
+                          performed_by_code:
+                            type: string
+                            enum:
+                              - emailage
+                              - kount
+                              - historical
+                              - transunion
+                              - allowed_countries_for_issuer_bank
+                              - exclude_country_match_for_issuers
+                              - allowed_countries_for_buyers
+                              - amount_by_client
+                              - number_of_transactions_by_client
+                              - number_of_cards_by_client
+                              - match_country_ip_and_issuer_bank
+                              - custom
+                              - amount_by_transaction
+                            description: Código de la regla que define la acción recomendada
+                      rules:
+                        type: array
+                        description: Reglas ejecutadas en la validación
+                        items:
+                          type: object
+                          description: Objeto que agrupa la ejecución de una regla
+                          properties:
+                            action:
+                              type: string
+                              enum:
+                                - continue_with_next_rule
+                                - reject_transaction
+                                - manual_transaction
+                                - process_transaction
+                                - continue_with_specific_rule
+                                - continue_with_specific_ruleset
+                              description: Acción de la regla
+                            name:
+                              type: string
+                              description: Nombre de la regla
+                            rule_code:
+                              type: string
+                              enum:
+                                - emailage
+                                - kount
+                                - historical
+                                - transunion
+                                - allowed_countries_for_issuer_bank
+                                - exclude_country_match_for_issuers
+                                - allowed_countries_for_buyers
+                                - amount_by_client
+                                - number_of_transactions_by_client
+                                - number_of_cards_by_client
+                                - match_country_ip_and_issuer_bank
+                                - custom
+                                - amount_by_transaction
+                              description: Código de la regla
+                            type:
+                              type: string
+                              enum:
+                                - filter
+                                - score
+                              description: Tipo de la regla
+                            response:
+                              anyOf:
+                                - $ref: '#/components/schemas/Filter'
+                                - $ref: '#/components/schemas/Score'
+                              description: Objeto que agrupa el resultado de la regla ejecutada
+              examples:
+                successful:
+                  value:
+                    status:
+                      code: 1200
+                      name: successful
+                      message: Validation was successfully queried
+                    data:
+                      created_at: '2022-04-18T20:23:58.000000Z'
+                      notified_at: null
+                      notified_status: pending
+                      resolved:
+                        resolved_at: '2022-04-18 21:15:21'
+                        action: reject_transaction
+                        reason: Possible fraud
+                        comments: Posible fraude reportado por el cliente
+                      id: ec058900-5f26-42e5-8abd-b0681e4a3253
+                      transaction:
+                        reference: 0cf06ad7-ff26-4a09-b40e-1375bbf31771
+                      action:
+                        name: manual_transaction
+                        performed_by: Force match IP country and issuing bank
+                        performed_by_code: match_country_ip_and_issuer_bank
+                      rules:
+                        - action: continue_with_next_rule
+                          name: Number of cards
+                          rule_code: number_of_cards_by_client
+                          type: filter
+                          response:
+                            match: true
+                            failed: false
+                        - action: continue_with_next_rule
+                          name: Historical transactions
+                          rule_code: historical
+                          type: score
+                          response:
+                            match: false
+                            score: '370'
+                            failed: false
+                            service_response:
+                              date: null
+                              risk: medium
+                              email: test@test.com
+                              phone: '2261751'
+                              score: '370'
+                              mobile: '3152807334'
+                              reason: medium
+                              panHash: c393bb89bcb92c7d95d405f26699b33f4956c92f607fbe8c2facb836c762382b
+                              document: CC 1040035000
+                              ipAddress: 132.248.0.1
+                        - action: continue_with_next_rule
+                          name: Amount by client
+                          rule_code: amount_by_client
+                          type: filter
+                          response:
+                            match: false
+                            failed: false
+                        - action: continue_with_next_rule
+                          name: Exclude country match for issuers
+                          rule_code: exclude_country_match_for_issuers
+                          type: filter
+                          response:
+                            match: null
+                            failed: true
+                        - action: continue_with_next_rule
+                          name: Allowed countries for buyers
+                          rule_code: allowed_countries_for_buyers
+                          type: filter
+                          response:
+                            match: false
+                            failed: false
+                        - action: continue_with_next_rule
+                          name: Emailage
+                          rule_code: emailage
+                          type: score
+                          response:
+                            match: false
+                            score: '0'
+                            failed: false
+                            service_response:
+                              score: '0'
+                              riskBand: '1'
+                              fraudType: ''
+                              isExecuted: true
+                              returnCode: '0'
+                              riskAdvice: '3'
+                              riskReason: '14'
+                              riskStatus: '2'
+                              ipInformation: null
+                              lastFlaggedOn: ''
+                              returnMessage: ''
+                              sourceIndustry: ''
+                              emailInformation:
+                                age: ''
+                                hits: null
+                                email: test@test.com
+                                domain:
+                                  age: '1995-08-13T04:00:00Z'
+                                  name: gmail.com
+                                  exists: 'Yes'
+                                  company: Google
+                                  category: Webmail
+                                  corporate: 'No'
+                                  riskLevel: '3'
+                                  countryName: United States
+                                  relevantInfo: '508'
+                                  riskLevelMessage: Moderate
+                                  relevantInfoMessage: Valid Webmail Domain from United States
+                                exists: 'Yes'
+                                status: Verified
+                                country: US
+                                imageUrl: ''
+                                lastSeen: '2020-06-12T03:37:56Z'
+                                firstSeen: '2010-07-17T07:00:00Z'
+                                uniqueHits: '1'
+                              riskAdviceMessage: Lower Fraud Risk
+                              riskReasonMessage: Email Created at least 9.9 Years Ago
+                        - action: continue_with_next_rule
+                          name: Transunion
+                          rule_code: transunion
+                          type: score
+                          response:
+                            match: false
+                            score: '995'
+                            failed: false
+                            service_response:
+                              match: false
+                              score: '995'
+                              failed: false
+                              ageRange: ''
+                              document: '123456789'
+                              fullName: Foo
+                              sheetCode: '05521509999999999999'
+                              isExecuted: true
+                              returnCode: 1
+                              returnText: Consulta exitosa
+                              documentType: CC
+                              errorMessage: null
+                              sheetDateTime: '2021-02-25T08:50:16-05:00'
+                              documentStatus: 1
+                              documentStatusText: Vigente
+                        - action: continue_with_next_rule
+                          name: Number of transactions
+                          rule_code: number_of_transactions_by_client
+                          type: filter
+                          response:
+                            match: false
+                            failed: false
+                        - action: continue_with_next_rule
+                          name: Kount
+                          rule_code: kount
+                          type: score
+                          response:
+                            match: false
+                            score: '10'
+                            failed: false
+                            service_response:
+                              score: '10'
+                              errors: []
+                              ipCity: Boise
+                              ipState: Idaho
+                              decision: A
+                              language: en
+                              ipAddress: 208.75.113.3
+                              ipCountry: US
+                              userAgent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML like Gecko) Chrome/76.0.3809.100 Safari/537.36
+                              ipLatitude: '43.6337'
+                              ipProvider: PENDING
+                              isExecuted: true
+                              fingerprint: 290D1C0172364AADAC25D9FD0B13D946
+                              ipLongitude: '-116.2004'
+                              deviceLayers: DF651ACF30..99CF09F417.E3D16F2CB7.061826EF2B
+                              errorMessage: null
+                              quantityErrors: 0
+                              operativeSystem: Mac OS X 10.14.6
+                              screenResolution: 1050x1680
+                              decisionDescription: APPROVE
+                        - action: continue_with_next_rule
+                          name: Allowed Issuer Bank Countries
+                          rule_code: allowed_countries_for_issuer_bank
+                          type: filter
+                          response:
+                            match: null
+                            failed: true
+                        - action: continue_with_next_rule
+                          name: Force match IP country and issuing bank
+                          rule_code: match_country_ip_and_issuer_bank
+                          type: filter
+                          response:
+                            match: null
+                            failed: true
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
+                  data:
+                    nullable: true
+              examples:
+                not found:
+                  value:
+                    status:
+                      code: 1350
+                      name: not_found
+                      message: Model validation with id 4175ebd7-2dbb-47c2-bf49-255e43c32c1cs not found
+                    data: null
+      operationId: get-validations-id
+      description: Este endpoint devuelve una validación de scudo
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Api-Key
+          description: Este parámetro contiene la clave de api proporcionada por Evertec
+          required: true
+  /notify-resolved-validation:
+    post:
+      summary: '[Webhook] Notificación de transacción resuelta'
+      operationId: post-notify-resolved-validation
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Api-Key
+          description: Este parámetro contiene la clave de api proporcionada por Evertec
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: seed
+          description: Timestamp con el cual se realiza el signature
+          required: true
+        - schema:
+            type: string
+          in: header
+          name: signature
+          description: Firma del la petición(ver docs/firma)
+          required: true
+      description: Este endpoint debe ser implementado por el cliente de SCUDO API para recibir una notificación de una validación con acción manual
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              x-examples:
+                example-1:
+                  status:
+                    code: 1200
+                    name: successful
+                    message: response.message.resolve_successful
+                  data:
+                    created_at: '2022-03-24T20:56:25.000000Z'
+                    notified_at: null
+                    status: pending
+                    resolved_action: process_transaction
+                    comments: comments
+                    resolved_by: 1
+                    resolved_transaction_reason: null
+                    id: 2d3a6d86-dfbe-428a-a80e-65064c8dbbb7
+                    transaction:
+                      reference: df7018d8-3796-4c01-89e7-95a335b12bdb
+                    action:
+                      name: manual_transaction
+                      performed_by: Kount
+                      performed_by_code: kount
+                    rules:
+                      - action: manual_transaction
+                        name: Kount
+                        rule_code: kount
+                        type: score
+                        response:
+                          match: false
+                          score: '100'
+                          failed: false
+                          service_response:
+                            score: '100'
+                            errors: []
+                            ipCity: Boise
+                            ipState: Idaho
+                            decision: D
+                            language: en
+                            ipAddress: 208.75.113.3
+                            ipCountry: US
+                            userAgent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML like Gecko) Chrome/76.0.3809.100 Safari/537.36
+                            ipLatitude: '43.6337'
+                            ipProvider: PENDING
+                            isExecuted: true
+                            fingerprint: 290D1C0172364AADAC25D9FD0B13D946
+                            ipLongitude: '-116.2004'
+                            deviceLayers: DF651ACF30..99CF09F417.E3D16F2CB7.061826EF2B
+                            errorMessage: null
+                            quantityErrors: 0
+                            operativeSystem: Mac OS X 10.14.6
+                            screenResolution: 1050x1680
+                            decisionDescription: DECLINE
+              properties:
+                status:
+                  $ref: '#/components/schemas/Status'
+                data:
+                  type: object
+                  required:
+                    - created_at
+                    - status
+                    - resolved_action
+                    - comments
+                    - id
+                    - transaction
+                    - action
+                    - rules
+                  properties:
+                    created_at:
+                      type: string
+                      minLength: 1
+                      description: Fecha de creación de la validación
+                    notified_at:
+                      type: string
+                      description: Fecha de notificacion de la validación
+                      nullable: true
+                    notified_status:
+                      type: string
+                      enum:
+                        - approved
+                        - canceled
+                        - chargeback
+                        - pending
+                        - refunded
+                        - rejected
+                      description: Estado final de la transacción
+                    resolved_action:
+                      type: string
+                      enum:
+                        - reject_transaction
+                        - process_transaction
+                      description: Acción final recomendada
+                    id:
+                      type: string
+                      description: Id de la validación de scudo
+                    resolved:
+                      type: object
+                      description: Objeto que agrupa campos de una validacion de scudo con validacion manual
+                      nullable: true
+                      properties:
+                        resolved_at:
+                          type: string
+                          description: Fecha de resolución de la validación manual
+                        action:
+                          type: string
+                          enum:
+                            - reject_transaction
+                            - process_transaction
+                          description: Acción de resolución de la validación manual
+                        reason:
+                          type: string
+                          description: Código de razón de resolución ( Ver Docs/Elementos de datos Tabla 5)
+                          enum:
+                            - owner_could_not_be_contacted
+                            - inconsistent_data
+                            - cardholder_request_not_froud
+                            - possible_fraud
+                            - other_reason
+                          nullable: true
+                        comments:
+                          type: string
+                          description: Comentarios de resolución de la validación manual
+                          nullable: true
+                    transaction:
+                      type: object
+                      description: Objeto que agrupa la información de la transacción del cliente
+                      required:
+                        - reference
+                      properties:
+                        reference:
+                          type: string
+                          minLength: 1
+                          description: Referencia de la transacción del cliente
+                    action:
+                      type: object
+                      required:
+                        - name
+                        - performed_by
+                        - performed_by_code
+                      properties:
+                        name:
+                          type: string
+                          enum:
+                            - reject_transaction
+                            - process_transaction
+                            - manual_transaction
+                          description: Acción recomendada de la validación
+                        performed_by:
+                          type: string
+                          minLength: 1
+                          description: Nombre de la regla que define la acción recomendada
+                        performed_by_code:
+                          type: string
+                          minLength: 1
+                          description: Código de la regla que define la acción recomendada
+                    rules:
+                      type: array
+                      uniqueItems: true
+                      minItems: 1
+                      description: Reglas ejecutadas en la validación
+                      items:
+                        type: object
+                        description: Objeto que agrupa la ejecución de una regla
+                        properties:
+                          action:
+                            type: string
+                            minLength: 1
+                            description: Acción de la regla
+                          name:
+                            type: string
+                            minLength: 1
+                            description: Nombre de la regla
+                          rule_code:
+                            type: string
+                            minLength: 1
+                            enum:
+                              - emailage
+                              - kount
+                              - historical
+                              - transunion
+                              - allowed_countries_for_issuer_bank
+                              - exclude_country_match_for_issuers
+                              - allowed_countries_for_buyers
+                              - amount_by_client
+                              - number_of_transactions_by_client
+                              - number_of_cards_by_client
+                              - match_country_ip_and_issuer_bank
+                              - custom
+                            description: Código de la regla
+                          type:
+                            type: string
+                            minLength: 1
+                            description: Tipo de la regla
+                          response:
+                            anyOf:
+                              - $ref: '#/components/schemas/Filter'
+                              - $ref: '#/components/schemas/Score'
+                        required:
+                          - action
+                          - name
+                          - rule_code
+                          - type
+              required:
+                - status
+                - data
+            examples:
+              Ejemplo satisfactorio:
+                value:
+                  status:
+                    code: 1200
+                    name: successful
+                    message: The validation has been resolved successfully
+                  data:
+                    created_at: '2022-04-19T16:05:59.000000Z'
+                    notified_at: null
+                    notified_status: pending
+                    resolved:
+                      resolved_at: '2022-04-19T16:06:40.826891Z'
+                      action: reject_transaction
+                      reason: Posible fraude
+                      comments: Cliente responde que puede ser un fraude
+                    id: 2d3a6d86-dfbe-428a-a80e-65064c8dbbb7
+                    transaction:
+                      reference: 57741905-5db9-47ea-a883-331c937008d3
+                    action:
+                      name: manual_transaction
+                      performed_by: Force match IP country and issuing bank
+                      performed_by_code: match_country_ip_and_issuer_bank
+                    rules:
+                      - action: continue_with_next_rule
+                        name: Number of cards
+                        rule_code: number_of_cards_by_client
+                        type: filter
+                        response:
+                          match: true
+                          failed: false
+                      - action: continue_with_next_rule
+                        name: Historical transactions
+                        rule_code: historical
+                        type: score
+                        response:
+                          match: false
+                          score: '370'
+                          failed: false
+                          service_response:
+                            date: null
+                            risk: medium
+                            email: test@test.com
+                            phone: '2261751'
+                            score: '370'
+                            mobile: '3152807334'
+                            reason: medium
+                            panHash: c393bb89bcb92c7d95d405f26699b33f4956c92f607fbe8c2facb836c762382b
+                            document: CC 1040035000
+                            ipAddress: 132.248.0.1
+                      - action: continue_with_next_rule
+                        name: Amount by client
+                        rule_code: amount_by_client
+                        type: filter
+                        response:
+                          match: false
+                          failed: false
+                      - action: continue_with_next_rule
+                        name: Exclude country match for issuers
+                        rule_code: exclude_country_match_for_issuers
+                        type: filter
+                        response:
+                          match: null
+                          failed: true
+                      - action: continue_with_next_rule
+                        name: Allowed countries for buyers
+                        rule_code: allowed_countries_for_buyers
+                        type: filter
+                        response:
+                          match: false
+                          failed: false
+                      - action: continue_with_next_rule
+                        name: Emailage
+                        rule_code: emailage
+                        type: score
+                        response:
+                          match: false
+                          score: '0'
+                          failed: false
+                          service_response:
+                            score: '0'
+                            riskBand: '1'
+                            fraudType: ''
+                            isExecuted: true
+                            returnCode: '0'
+                            riskAdvice: '3'
+                            riskReason: '14'
+                            riskStatus: '2'
+                            ipInformation: null
+                            lastFlaggedOn: ''
+                            returnMessage: ''
+                            sourceIndustry: ''
+                            emailInformation:
+                              age: ''
+                              hits: null
+                              email: test@test.com
+                              domain:
+                                age: '1995-08-13T04:00:00Z'
+                                name: gmail.com
+                                exists: 'Yes'
+                                company: Google
+                                category: Webmail
+                                corporate: 'No'
+                                riskLevel: '3'
+                                countryName: United States
+                                relevantInfo: '508'
+                                riskLevelMessage: Moderate
+                                relevantInfoMessage: Valid Webmail Domain from United States
+                              exists: 'Yes'
+                              status: Verified
+                              country: US
+                              imageUrl: ''
+                              lastSeen: '2020-06-12T03:37:56Z'
+                              firstSeen: '2010-07-17T07:00:00Z'
+                              uniqueHits: '1'
+                            riskAdviceMessage: Lower Fraud Risk
+                            riskReasonMessage: Email Created at least 9.9 Years Ago
+                      - action: continue_with_next_rule
+                        name: Transunion
+                        rule_code: transunion
+                        type: score
+                        response:
+                          match: false
+                          score: '995'
+                          failed: false
+                          service_response:
+                            match: false
+                            score: '995'
+                            failed: false
+                            ageRange: ''
+                            document: '123456789'
+                            fullName: Foo
+                            sheetCode: '05521509999999999999'
+                            isExecuted: true
+                            returnCode: 1
+                            returnText: Consulta exitosa
+                            documentType: CC
+                            errorMessage: null
+                            sheetDateTime: '2021-02-25T08:50:16-05:00'
+                            documentStatus: 1
+                            documentStatusText: Vigente
+                      - action: continue_with_next_rule
+                        name: Number of transactions
+                        rule_code: number_of_transactions_by_client
+                        type: filter
+                        response:
+                          match: false
+                          failed: false
+                      - action: continue_with_next_rule
+                        name: Kount
+                        rule_code: kount
+                        type: score
+                        response:
+                          match: false
+                          score: '10'
+                          failed: false
+                          service_response:
+                            score: '10'
+                            errors: []
+                            ipCity: Boise
+                            ipState: Idaho
+                            decision: A
+                            language: en
+                            ipAddress: 208.75.113.3
+                            ipCountry: US
+                            userAgent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML like Gecko) Chrome/76.0.3809.100 Safari/537.36
+                            ipLatitude: '43.6337'
+                            ipProvider: PENDING
+                            isExecuted: true
+                            fingerprint: 290D1C0172364AADAC25D9FD0B13D946
+                            ipLongitude: '-116.2004'
+                            deviceLayers: DF651ACF30..99CF09F417.E3D16F2CB7.061826EF2B
+                            errorMessage: null
+                            quantityErrors: 0
+                            operativeSystem: Mac OS X 10.14.6
+                            screenResolution: 1050x1680
+                            decisionDescription: APPROVE
+                      - action: continue_with_next_rule
+                        name: Allowed Issuer Bank Countries
+                        rule_code: allowed_countries_for_issuer_bank
+                        type: filter
+                        response:
+                          match: null
+                          failed: true
+                      - action: continue_with_next_rule
+                        name: Force match IP country and issuing bank
+                        rule_code: match_country_ip_and_issuer_bank
+                        type: filter
+                        response:
+                          match: null
+                          failed: true
+components:
+  schemas:
+    Person:
+      title: Person
+      type: object
+      description: 'Estructura que define los campos para una persona de tipo ''shipping'', ''buyer'' y ''payer'''
+      properties:
+        document:
+          type: string
+          example: '555777888'
+          maxLength: 30
+          description: Número de identificación
+          nullable: true
+        document_type:
+          type: string
+          description: Tipo de documento
+          example: CC
+          minLength: 2
+          maxLength: 10
+          nullable: true
+        first_name:
+          type: string
+          maxLength: 40
+          example: John
+          description: Nombres
+        last_name:
+          type: string
+          maxLength: 40
+          example: Doe
+          description: Apellidos
+        email:
+          type: string
+          maxLength: 80
+          example: john@mail.com
+          description: Correo electronico
+        mobile:
+          type: string
+          maxLength: 15
+          minLength: 7
+          description: Número de celular
+          example: '3158889999'
+        phone:
+          type: string
+          maxLength: 15
+          minLength: 7
+          example: '4455667'
+          description: Número de teléfono
+        address:
+          $ref: '#/components/schemas/Address'
+      required:
+        - first_name
+        - last_name
+        - email
+    Payment:
+      title: Payment
+      type: object
+      description: Estructura que describe la referencia de pago y su monto
+      properties:
+        reference:
+          type: string
+          description: Referencia de la transacción/pago del cliente
+          maxLength: 40
+        amount:
+          type: object
+          required:
+            - currency
+            - total
+          properties:
+            currency:
+              type: string
+              pattern: '[a-zA-z]{3}'
+              example: USD
+              description: Moneda del pago en ISO 4217 código alfanúmerico
+              minLength: 3
+              maxLength: 3
+            total:
+              type: integer
+              example: 355
+              description: Monto total de la transacción/pago ( en formato unidad menor)
+      required:
+        - reference
+        - amount
+    Instrument:
+      title: Instrument
+      type: object
+      description: Intrumento de pago
+      properties:
+        card:
+          type: object
+          properties:
+            pan_hash:
+              type: string
+              description: Hash SHA-256 del número de tarjeta
+              maxLength: 64
+            expiration_date:
+              type: string
+              example: 12/22
+              minLength: 5
+              maxLength: 5
+              description: Fecha de expiración de la tarjeta
+            bin:
+              type: string
+              example: '411111'
+              minLength: 6
+              maxLength: 6
+              pattern: '[0-9]{6}'
+              description: Número de identificación bancaria
+            last_4:
+              type: string
+              example: '1234'
+              pattern: '[0-9]{4}'
+              description: Últimos 4 digitos de la tarjeta de crédito
+              minLength: 4
+              maxLength: 4
+          required:
+            - pan_hash
+            - expiration_date
+            - bin
+            - last_4
+    Status:
+      title: Status
+      type: object
+      description: Estructura para definir estados de respuestas
+      x-internal: false
+      properties:
+        code:
+          type: integer
+          format: int32
+          enum:
+            - 1200
+            - 1201
+            - 1202
+            - 1203
+            - 1301
+            - 1310
+            - 1350
+            - 1402
+            - 1403
+          description: Código de los estados. (consulte la columna código en Documentos/Elementos de datos Tabla 1)
+        name:
+          type: string
+          enum:
+            - successful
+            - failed
+            - id_missmatch
+            - missing_required_fields
+            - wrong_headers_format
+            - wrong_authentication_format
+            - bad_credentials
+            - rules_not_found
+            - wrong_field_format
+            - wrong_body_json
+          description: Nombre de los estados. (consulte la columna Significado en Documentos/Elementos de datos Tabla 1)
+        message:
+          type: string
+          description: Mensaje para aclarar el estado
+      required:
+        - code
+        - name
+    Address:
+      title: Address
+      type: object
+      description: 'Estructura que define la dirección de la persona '
+      properties:
+        address:
+          type: string
+          example: 199-129 E 43rd St
+          maxLength: 100
+          description: Dirección
+        city:
+          type: string
+          example: New York
+          maxLength: 50
+          description: Ciudad de la dirección
+        postal_code:
+          type: string
+          example: '10017'
+          maxLength: 10
+          description: Código postal
+        country:
+          type: string
+          example: US
+          description: País - ISO-3166
+          pattern: '[A-Z]{2}'
+          minLength: 2
+          maxLength: 2
+        state:
+          type: string
+          maxLength: 50
+          example: New York
+          description: Estado/Provincia/Departamento de la dirección
+      required:
+        - address
+    Emailage:
+      description: Estructura que define la respuesta para la regla emailage
+      type: object
+      x-examples:
+        Emailage:
+          emailInformation:
+            email: test@test.com
+            age: ''
+            country: US
+            exists: 'Yes'
+            status: Verified
+            firstSeen: '2010-07-17T07:00:00Z'
+            lastSeen: '2020-06-12T03:37:56Z'
+            imageUrl: ''
+            hits: null
+            uniqueHits: '1'
+            domain:
+              name: gmail.com
+              age: '1995-08-13T04:00:00Z'
+              category: Webmail
+              corporate: 'No'
+              exists: 'Yes'
+              company: Google
+              countryName: United States
+              riskLevel: '3'
+              riskLevelMessage: Moderate
+              relevantInfo: '508'
+              relevantInfoMessage: Valid Webmail Domain from United States
+          ipInformation:
+            ip: 127.0.0.1
+            riskLevel: '1'
+            riskLevelMessage: Very High
+            isp: att services inc.
+            country: United States
+            region: alaska
+            city: fairbanks
+            latitude: '64.8363'
+            longitude: '-147.715'
+          score: '0'
+          riskReason: '14'
+          riskReasonMessage: Email Created at least 9.9 Years Ago
+          riskStatus: '2'
+          riskAdvice: '3'
+          riskAdviceMessage: Lower Fraud Risk
+          riskBand: '1'
+          sourceIndustry: ''
+          fraudType: ''
+          lastFlaggedOn: ''
+          returnCode: '0'
+          returnMessage: ''
+          isExecuted: true
+      properties:
+        score:
+          type: string
+        emailInformation:
+          type: object
+          required:
+            - email
+            - age
+            - country
+            - exists
+            - status
+            - firstSeen
+            - lastSeen
+            - imageUrl
+            - hits
+            - uniqueHits
+            - domain
+          properties:
+            email:
+              type: string
+              minLength: 1
+              nullable: true
+            age:
+              type: string
+              nullable: true
+            country:
+              type: string
+              minLength: 1
+              nullable: true
+            exists:
+              type: string
+              minLength: 1
+              nullable: true
+            status:
+              type: string
+              minLength: 1
+              nullable: true
+            firstSeen:
+              type: string
+              minLength: 1
+              nullable: true
+            lastSeen:
+              type: string
+              minLength: 1
+              nullable: true
+            imageUrl:
+              type: string
+              nullable: true
+            hits:
+              type: string
+              nullable: true
+            uniqueHits:
+              type: string
+              nullable: true
+            domain:
+              type: object
+              required:
+                - name
+                - age
+                - category
+                - corporate
+                - exists
+                - company
+                - countryName
+                - riskLevel
+                - riskLevelMessage
+                - relevantInfo
+                - relevantInfoMessage
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  nullable: true
+                age:
+                  type: string
+                  minLength: 1
+                  nullable: true
+                category:
+                  type: string
+                  minLength: 1
+                  nullable: true
+                corporate:
+                  type: string
+                  minLength: 1
+                  nullable: true
+                exists:
+                  type: string
+                  minLength: 1
+                  nullable: true
+                company:
+                  type: string
+                  minLength: 1
+                  nullable: true
+                countryName:
+                  type: string
+                  minLength: 1
+                  nullable: true
+                riskLevel:
+                  type: string
+                  minLength: 1
+                  nullable: true
+                riskLevelMessage:
+                  type: string
+                  minLength: 1
+                  nullable: true
+                relevantInfo:
+                  type: string
+                  minLength: 1
+                  nullable: true
+                relevantInfoMessage:
+                  type: string
+                  minLength: 1
+                  nullable: true
+        ipInformation:
+          type: object
+          nullable: true
+          properties:
+            ip:
+              type: string
+              nullable: true
+            riskLevel:
+              type: string
+              nullable: true
+            riskLevelMessage:
+              type: string
+              nullable: true
+            isp:
+              type: string
+              nullable: true
+            country:
+              type: string
+              nullable: true
+            region:
+              type: string
+              nullable: true
+            city:
+              type: string
+              nullable: true
+            latitude:
+              type: string
+              nullable: true
+            longitude:
+              type: string
+              nullable: true
+        riskReason:
+          type: string
+        riskReasonMessage:
+          type: string
+        riskStatus:
+          type: string
+        riskAdvice:
+          type: string
+        riskAdviceMessage:
+          type: string
+        riskBand:
+          type: string
+        sourceIndustry:
+          type: string
+        fraudType:
+          type: string
+        lastFlaggedOn:
+          type: string
+        returnCode:
+          type: string
+        returnMessage:
+          type: string
+        isExecuted:
+          type: boolean
+      required:
+        - score
+        - emailInformation
+        - ipInformation
+        - riskReason
+        - riskReasonMessage
+        - riskStatus
+        - riskAdvice
+        - riskAdviceMessage
+        - riskBand
+        - sourceIndustry
+        - fraudType
+        - lastFlaggedOn
+        - returnCode
+        - returnMessage
+        - isExecuted
+      title: Emailage
+    Kount:
+      description: Estructura que define la respuesta para la regla kount
+      type: object
+      x-examples:
+        example-1:
+          match: false
+          failed: false
+          score: '10'
+          service_response:
+            score: '10'
+            decision: A
+            decisionDescription: APPROVE
+            deviceLayers: DF651ACF30..99CF09F417.E3D16F2CB7.061826EF2B
+            userAgent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML like Gecko) Chrome/76.0.3809.100 Safari/537.36
+            operativeSystem: Mac OS X 10.14.6
+            screenResolution: 1050x1680
+            ipAddress: 208.75.113.3
+            ipLatitude: '43.6337'
+            ipLongitude: '-116.2004'
+            ipCountry: US
+            ipState: Idaho
+            ipCity: Boise
+            ipProvider: PENDING
+            fingerprint: 290D1C0172364AADAC25D9FD0B13D946
+            language: en
+            errors:
+              - ERROR_1
+              - ERROR_2
+            quantityErrors: 0
+            errorMessage: null
+            isExecuted: true
+      properties:
+        score:
+          type: string
+          minLength: 1
+        decision:
+          type: string
+          minLength: 1
+        decisionDescription:
+          type: string
+          minLength: 1
+        deviceLayers:
+          type: string
+          minLength: 1
+        userAgent:
+          type: string
+          minLength: 1
+        operativeSystem:
+          type: string
+          minLength: 1
+        screenResolution:
+          type: string
+          minLength: 1
+        ipAddress:
+          type: string
+          minLength: 1
+        ipLatitude:
+          type: string
+          minLength: 1
+        ipLongitude:
+          type: string
+          minLength: 1
+        ipCountry:
+          type: string
+          minLength: 1
+        ipState:
+          type: string
+          minLength: 1
+        ipCity:
+          type: string
+          minLength: 1
+        ipProvider:
+          type: string
+          minLength: 1
+        fingerprint:
+          type: string
+          minLength: 1
+        language:
+          type: string
+          minLength: 1
+        errors:
+          type: array
+          items:
+            type: string
+        quantityErrors:
+          type: integer
+        errorMessage:
+          type: string
+          nullable: true
+        isExecuted:
+          type: boolean
+      required:
+        - score
+        - decision
+        - decisionDescription
+        - deviceLayers
+        - userAgent
+        - operativeSystem
+        - screenResolution
+        - ipAddress
+        - ipLatitude
+        - ipLongitude
+        - ipCountry
+        - ipState
+        - ipCity
+        - ipProvider
+        - fingerprint
+        - language
+        - errors
+        - quantityErrors
+        - errorMessage
+        - isExecuted
+      title: Kount
+    Historical:
+      title: Historical
+      type: object
+      x-examples:
+        successful:
+          risk: high
+          score: '1000'
+          reason: high
+          email: test@test.com
+          panHash: 9bbef19476623ca56c17da75fd57734dbf82530686043a6e491c6d71befe8f6e
+          document: CC 1040035000
+          mobile: '3152807334'
+          phone: '2261751'
+          ipAddress: 132.248.0.1
+          date: null
+      properties:
+        risk:
+          type: string
+        score:
+          type: string
+        reason:
+          type: string
+        email:
+          type: string
+        panHash:
+          type: string
+        document:
+          type: string
+          nullable: true
+        mobile:
+          type: string
+        phone:
+          type: string
+        ipAddress:
+          type: string
+        date:
+          type: string
+          nullable: true
+      description: Estructura que define la respuesta para la regla historico transaccional
+    Transunion:
+      title: Transunion
+      type: object
+      x-examples:
+        successful:
+          document: '71000001'
+          documentType: CC
+          fullName: GARCIA HERRERA LUIS FELIPE
+          documentStatusText: Vigente
+          returnCode: 2
+          returnText: Consulta exitosa
+          score: '375'
+          match: false
+          errorMessage: null
+          failed: false
+          isExecuted: true
+        missing document:
+          document: null
+          documentType: null
+          fullName: null
+          documentStatusText: null
+          returnCode: null
+          returnText: null
+          score: null
+          match: null
+          errorMessage: 'Elementos faltantes: [payer.document_type] (consulte la documentación del enpoint)'
+          failed: true
+          isExecuted: false
+        missing document type:
+          document: null
+          documentType: null
+          fullName: null
+          documentStatusText: null
+          returnCode: null
+          returnText: null
+          score: null
+          match: null
+          errorMessage: 'Elementos faltantes: [payer.document] (consulte la documentación del enpoint)'
+          failed: true
+          isExecuted: false
+      properties:
+        document:
+          type: string
+          nullable: true
+        document_type:
+          type: string
+          nullable: true
+        fullName:
+          type: string
+          nullable: true
+        documentStatusText:
+          type: string
+          nullable: true
+        returnCode:
+          type: number
+          nullable: true
+        returnText:
+          type: string
+          nullable: true
+        score:
+          type: number
+          nullable: true
+        match:
+          type: boolean
+          nullable: true
+        errorMessage:
+          type: string
+          nullable: true
+        failed:
+          type: boolean
+        isExecuted:
+          type: boolean
+      description: Estructura que define la respuesta para la regla Transunion
+    Filter:
+      title: Filter
+      type: object
+      properties:
+        match:
+          type: boolean
+          description: Define si la regla coincide con la parametrización
+        failed:
+          type: boolean
+          description: Define si la regla falla al intentar ejecutarse
+    Score:
+      title: Score
+      type: object
+      description: 'Respuesta de regla ejecutada  tipo puntaje '
+      properties:
+        match:
+          type: boolean
+          description: Define si la regla coincide con la parametrización
+        score:
+          type: string
+          description: Puntaje obtenido de la regla
+        failed:
+          type: boolean
+          description: Define si la regla falla al intentar ejecutarse
+        service_response:
+          oneOf:
+            - $ref: '#/components/schemas/Kount'
+            - $ref: '#/components/schemas/Emailage'
+            - $ref: '#/components/schemas/Transunion'
+            - $ref: '#/components/schemas/Historical'
+          description: Estructura que define los tipos de respuesta de los servicios
+  responses: {}
