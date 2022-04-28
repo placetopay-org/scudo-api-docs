@@ -2157,6 +2157,63 @@ components:
         isExecuted:
           type: boolean
       description: Estructura que define la respuesta para la regla Transunion
+    BehavioralNetwork:
+      type: object
+      properties:
+        match:
+          type: boolean
+        failed:
+          type: boolean
+        score:
+          type: string
+        service_response:
+          type: object
+          properties:
+            fraudScore:
+              type: number
+            fraudConcept:
+              type: object
+              properties:
+                F22:
+                  type: string
+                F23:
+                  type: string
+                F24:
+                  type: string
+            legalScore:
+              type: number
+            legalConcept:
+              type: object
+              properties:
+                L11:
+                  type: string
+                L10:
+                  type: string
+                L1:
+                  type: string
+            reliable:
+              type: boolean
+            errorMessage:
+              type: 'null'
+      x-examples:
+        example-1:
+          match: true
+          failed: false
+          score: '0.99'
+          service_response:
+            fraudScore: 0.99
+            fraudConcept:
+              F22: Empresas fachada - Frecuencia inusual de país emisor tarjeta en comercio
+              F23: Calidad de datos en el navegador
+              F24: Calidad de datos en sistema operativo
+            legalScore: 0.01
+            legalConcept:
+              L11: Calidad de datos de sección de comercio
+              L10: Calidad de datos en tarjeta
+              L1: Similitud con historial de pago
+            reliable: true
+            errorMessage: null
+      description: Estructura que define la respuesta para la regla Red de comportamiento
     Filter:
       title: Filter
       type: object
