@@ -2172,25 +2172,25 @@ components:
             fraudScore:
               type: number
             fraudConcept:
-              type: object
-              properties:
-                F22:
-                  type: string
-                F23:
-                  type: string
-                F24:
-                  type: string
+              type: array
+              items:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  description:
+                    type: string
             legalScore:
               type: number
             legalConcept:
-              type: object
-              properties:
-                L11:
-                  type: string
-                L10:
-                  type: string
-                L1:
-                  type: string
+              type: array
+              items:
+                type: object
+                properties:
+                  code:
+                    type: string
+                  description:
+                    type: string
             reliable:
               type: boolean
             errorMessage:
@@ -2203,17 +2203,22 @@ components:
           service_response:
             fraudScore: 0.99
             fraudConcept:
-              F22: Empresas fachada - Frecuencia inusual de país emisor tarjeta en comercio
-              F23: Calidad de datos en el navegador
-              F24: Calidad de datos en sistema operativo
+              - code: F22
+                description: Empresas fachada - Frecuencia inusual de país emisor tarjeta en comercio
+              - code: F23
+                description: Calidad de datos en el navegador
+              - code: F24
+                description: Calidad de datos en sistema operativo
             legalScore: 0.01
             legalConcept:
-              L11: Calidad de datos de sección de comercio
-              L10: Calidad de datos en tarjeta
-              L1: Similitud con historial de pago
+              - code: L11
+                description: Calidad de datos de sección de comercio
+              - code: L10
+                description: Calidad de datos en tarjeta
+              - code: L1
+                description: Similitud con historial de pago
             reliable: true
             errorMessage: null
-      description: Estructura que define la respuesta para la regla Red de comportamiento
     Filter:
       title: Filter
       type: object
