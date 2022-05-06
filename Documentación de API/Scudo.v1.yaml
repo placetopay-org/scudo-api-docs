@@ -79,7 +79,7 @@ paths:
                   maxLength: 255
                   minLength: 1
                   description: Agente de usuario del cliente
-                aditional:
+                additional:
                   type: object
                   description: 'Es un objeto que permite enviar datos adicionales en formato JSON '
                   nullable: true
