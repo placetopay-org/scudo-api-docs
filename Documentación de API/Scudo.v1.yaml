@@ -146,8 +146,21 @@ paths:
                       expiration_date: 12/22
                       bin: '411111'
                       last_4: '1111'
+                    merchant_code: '8888'
                   ip_address: 127.0.0.1
                   user_agent: 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.3'
+                  aditional:
+                    key: 'first value '
+                    second_key: 'second value '
+                    array_object:
+                      - first_value: 'first value '
+                      - second_value: 'first value '
+                    single_array:
+                      - one
+                      - two
+                    object:
+                      key: value
+                      second_key: 'second value '
               ejemplo campo faltante:
                 value:
                   locale: es_CO
