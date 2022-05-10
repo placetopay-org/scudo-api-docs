@@ -1626,6 +1626,10 @@ components:
             - expiration_date
             - bin
             - last_4
+        merchant_code:
+          type: string
+          description: Código del comercio
+          nullable: true
     Status:
       title: Status
       type: object
