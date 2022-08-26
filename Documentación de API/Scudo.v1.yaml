@@ -239,6 +239,40 @@ paths:
                             type: string
                             maxLength: 40
                             description: Referencia de la transacción del cliente
+                      action:
+                        type: object
+                        description: Objeto que agrupa la acción recomendada
+                        required:
+                          - name
+                          - performed_by
+                        properties:
+                          name:
+                            type: string
+                            enum:
+                              - reject_transaction
+                              - manual_transaction
+                              - process_transaction
+                            description: Acción recomendada de la validación
+                          performed_by:
+                            type: string
+                            description: Nombre de la regla que define la acción recomendada
+                          performed_by_code:
+                            type: string
+                            enum:
+                              - emailage
+                              - kount
+                              - historical
+                              - transunion
+                              - allowed_countries_for_issuer_bank
+                              - exclude_country_match_for_issuers
+                              - allowed_countries_for_buyers
+                              - amount_by_client
+                              - number_of_transactions_by_client
+                              - number_of_cards_by_client
+                              - match_country_ip_and_issuer_bank
+                              - custom
+                              - amount_by_transaction
+                            description: Código de la regla que define la acción recomendada
                       rules:
                         type: array
                         description: Reglas ejecutadas en la validación
@@ -292,40 +326,6 @@ paths:
                             - rule_code
                             - type
                             - response
-                      action:
-                        type: object
-                        description: Objeto que agrupa la acción recomendada
-                        required:
-                          - name
-                          - performed_by
-                        properties:
-                          name:
-                            type: string
-                            enum:
-                              - reject_transaction
-                              - manual_transaction
-                              - process_transaction
-                            description: Acción recomendada de la validación
-                          performed_by:
-                            type: string
-                            description: Nombre de la regla que define la acción recomendada
-                          performed_by_code:
-                            type: string
-                            enum:
-                              - emailage
-                              - kount
-                              - historical
-                              - transunion
-                              - allowed_countries_for_issuer_bank
-                              - exclude_country_match_for_issuers
-                              - allowed_countries_for_buyers
-                              - amount_by_client
-                              - number_of_transactions_by_client
-                              - number_of_cards_by_client
-                              - match_country_ip_and_issuer_bank
-                              - custom
-                              - amount_by_transaction
-                            description: Código de la regla que define la acción recomendada
                     required:
                       - id
                       - transaction
@@ -2133,78 +2133,55 @@ components:
           nullable: true
       description: Estructura que define la respuesta para la regla historico transaccional
     Transunion:
-      title: Transunion
       type: object
-      x-examples:
-        successful:
-          document: '71000001'
-          documentType: CC
-          fullName: GARCIA HERRERA LUIS FELIPE
-          documentStatusText: Vigente
-          returnCode: 2
-          returnText: Consulta exitosa
-          score: '375'
-          match: false
-          errorMessage: null
-          failed: false
-          isExecuted: true
-        missing document:
-          document: null
-          documentType: null
-          fullName: null
-          documentStatusText: null
-          returnCode: null
-          returnText: null
-          score: null
-          match: null
-          errorMessage: 'Elementos faltantes: [payer.document_type] (consulte la documentación del enpoint)'
-          failed: true
-          isExecuted: false
-        missing document type:
-          document: null
-          documentType: null
-          fullName: null
-          documentStatusText: null
-          returnCode: null
-          returnText: null
-          score: null
-          match: null
-          errorMessage: 'Elementos faltantes: [payer.document] (consulte la documentación del enpoint)'
-          failed: true
-          isExecuted: false
       properties:
         document:
           type: string
-          nullable: true
-        document_type:
+        documentType:
           type: string
-          nullable: true
         fullName:
           type: string
-          nullable: true
+        documentStatus:
+          type: integer
         documentStatusText:
           type: string
-          nullable: true
+        ageRange:
+          type: string
+        sheetCode:
+          type: string
+        sheetDateTime:
+          type: string
         returnCode:
-          type: number
-          nullable: true
+          type: integer
         returnText:
           type: string
-          nullable: true
         score:
-          type: number
-          nullable: true
+          type: string
         match:
           type: boolean
-          nullable: true
         errorMessage:
-          type: string
-          nullable: true
+          type: 'null'
         failed:
           type: boolean
         isExecuted:
           type: boolean
-      description: Estructura que define la respuesta para la regla Transunion
+      x-examples:
+        example-1:
+          document: '123456789'
+          documentType: CC
+          fullName: Foo
+          documentStatus: 1
+          documentStatusText: Vigente
+          ageRange: ''
+          sheetCode: '05521509999999999999'
+          sheetDateTime: '2021-02-25T08:50:16-05:00'
+          returnCode: 1
+          returnText: Consulta exitosa
+          score: '995'
+          match: false
+          errorMessage: null
+          failed: false
+          isExecuted: true
     BehavioralNetwork:
       type: object
       properties:
@@ -2285,17 +2262,18 @@ components:
         match:
           type: boolean
           description: Define si la regla coincide con la parametrización
-        score:
-          type: string
-          description: Puntaje obtenido de la regla
         failed:
           type: boolean
           description: Define si la regla falla al intentar ejecutarse
+        score:
+          type: string
+          description: Puntaje obtenido de la regla
         service_response:
           oneOf:
             - $ref: '#/components/schemas/Kount'
             - $ref: '#/components/schemas/Emailage'
             - $ref: '#/components/schemas/Transunion'
             - $ref: '#/components/schemas/Historical'
+            - $ref: '#/components/schemas/BehavioralNetwork'
           description: Estructura que define los tipos de respuesta de los servicios
   responses: {}
