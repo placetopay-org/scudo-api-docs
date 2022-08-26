@@ -319,8 +319,8 @@ paths:
                             response:
                               oneOf:
                                 - $ref: '#/components/schemas/Score'
-                                - $ref: '#/components/schemas/Filter'
                                 - $ref: '#/components/schemas/Historical'
+                                - $ref: '#/components/schemas/Filter'
                               description: Objeto que agrupa el resultado de la regla ejecutada
                           required:
                             - name
