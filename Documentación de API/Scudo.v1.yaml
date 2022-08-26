@@ -320,6 +320,7 @@ paths:
                               oneOf:
                                 - $ref: '#/components/schemas/Score'
                                 - $ref: '#/components/schemas/Filter'
+                                - $ref: '#/components/schemas/Historical'
                               description: Objeto que agrupa el resultado de la regla ejecutada
                           required:
                             - name
@@ -2095,7 +2096,6 @@ components:
       title: Kount
     Historical:
       title: Historical
-      type: object
       x-examples:
         successful:
           risk: high
@@ -2108,30 +2108,53 @@ components:
           phone: '2261751'
           ipAddress: 132.248.0.1
           date: null
-      properties:
-        risk:
-          type: string
-        score:
-          type: string
-        reason:
-          type: string
-        email:
-          type: string
-        panHash:
-          type: string
-        document:
-          type: string
-          nullable: true
-        mobile:
-          type: string
-        phone:
-          type: string
-        ipAddress:
-          type: string
-        date:
-          type: string
-          nullable: true
       description: Estructura que define la respuesta para la regla historico transaccional
+      oneOf:
+        - properties:
+            risk:
+              type: string
+            score:
+              type: string
+            reason:
+              type: string
+            email:
+              type: string
+            panHash:
+              type: string
+            document:
+              type: string
+              nullable: true
+            mobile:
+              type: string
+            phone:
+              type: string
+            ipAddress:
+              type: string
+            date:
+              type: string
+              nullable: true
+        - properties:
+            message:
+              type: string
+            received:
+              type: object
+              properties:
+                currency:
+                  type: string
+                amount:
+                  type: number
+            configured:
+              type: object
+              properties:
+                operator:
+                  type: string
+                currency:
+                  type: string
+                value:
+                  type: string
+            failed:
+              type: boolean
+      type: object
     Transunion:
       type: object
       properties:
