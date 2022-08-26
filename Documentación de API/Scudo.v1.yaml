@@ -2133,7 +2133,8 @@ components:
             date:
               type: string
               nullable: true
-        - properties:
+        - description: Respuesta en caso de no coincidencia con la configuración de la regla
+          properties:
             message:
               type: string
             received:
