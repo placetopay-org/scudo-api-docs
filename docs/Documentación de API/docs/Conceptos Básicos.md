@@ -1,5 +1,6 @@
 ## Secuencia de SCUDO
 
+### Validación exitosa
 ![Secuencia API Scudo-Página-2.drawio.png](https://stoplight.io/api/v1/projects/cHJqOjE1MDQz/images/KsTRSpQNhcU)
 
 
