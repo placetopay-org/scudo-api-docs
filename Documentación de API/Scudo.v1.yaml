@@ -775,14 +775,13 @@ paths:
                       name: approved
         description: ''
     parameters: []
-  '/api/v1/validations/{id}':
+  '/api/v1/validations/{scudo_reference}':
     parameters:
       - schema:
           type: string
-        name: id
+        name: scudo_reference
         in: path
         required: true
-        description: Identificador de validación de scudo
     get:
       summary: Obtener Validación
       tags: []
@@ -923,8 +922,28 @@ paths:
                               description: Tipo de la regla
                             response:
                               anyOf:
-                                - $ref: '#/components/schemas/Filter'
                                 - $ref: '#/components/schemas/Score'
+                                - $ref: '#/components/schemas/Filter'
+                                - type: object
+                                  properties:
+                                    message:
+                                      type: string
+                                    received:
+                                      type: object
+                                      properties:
+                                        amount:
+                                          type: number
+                                        currency:
+                                          type: object
+                                    configured:
+                                      type: object
+                                      properties:
+                                        value:
+                                          type: string
+                                        currency:
+                                          type: string
+                                        operator:
+                                          type: string
                               description: Objeto que agrupa el resultado de la regla ejecutada
               examples:
                 successful:
