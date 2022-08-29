@@ -926,6 +926,8 @@ paths:
                                 - $ref: '#/components/schemas/Filter'
                                 - type: object
                                   properties:
+                                    failed:
+                                      type: boolean
                                     message:
                                       type: string
                                     received:
