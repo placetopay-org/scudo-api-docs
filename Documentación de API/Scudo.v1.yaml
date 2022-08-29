@@ -2207,65 +2207,44 @@ components:
     BehavioralNetwork:
       type: object
       properties:
-        match:
+        fraudScore:
+          type: number
+        fraudConcept:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              description:
+                type: string
+        legalScore:
+          type: number
+        legalConcept:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              description:
+                type: string
+        reliable:
           type: boolean
-        failed:
-          type: boolean
-        score:
-          type: string
-        service_response:
-          type: object
-          properties:
-            fraudScore:
-              type: number
-            fraudConcept:
-              type: array
-              items:
-                type: object
-                properties:
-                  code:
-                    type: string
-                  description:
-                    type: string
-            legalScore:
-              type: number
-            legalConcept:
-              type: array
-              items:
-                type: object
-                properties:
-                  code:
-                    type: string
-                  description:
-                    type: string
-            reliable:
-              type: boolean
-            errorMessage:
-              type: 'null'
+        errorMessage:
+          type: 'null'
       x-examples:
         example-1:
-          match: true
-          failed: false
-          score: '0.99'
-          service_response:
-            fraudScore: 0.99
-            fraudConcept:
-              - code: F22
-                description: Empresas fachada - Frecuencia inusual de país emisor tarjeta en comercio
-              - code: F23
-                description: Calidad de datos en el navegador
-              - code: F24
-                description: Calidad de datos en sistema operativo
-            legalScore: 0.01
-            legalConcept:
-              - code: L11
-                description: Calidad de datos de sección de comercio
-              - code: L10
-                description: Calidad de datos en tarjeta
-              - code: L1
-                description: Similitud con historial de pago
-            reliable: true
-            errorMessage: null
+          fraudScore: 0.99
+          fraudConcept:
+            - code: F22
+              description: Empresas fachada - Frecuencia inusual de país emisor tarjeta en comercio
+          legalScore: 0.01
+          legalConcept:
+            - code: L11
+              description: Calidad de datos de sección de comercio
+          reliable: true
+          errorMessage: null
     Filter:
       title: Filter
       type: object
