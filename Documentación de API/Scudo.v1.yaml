@@ -2204,6 +2204,8 @@ components:
           errorMessage: null
           failed: false
           isExecuted: true
+      title: Transunion
+      description: Estructura que define la respuesta para la regla Transunion
     BehavioralNetwork:
       type: object
       properties:
@@ -2245,6 +2247,8 @@ components:
               description: Calidad de datos de sección de comercio
           reliable: true
           errorMessage: null
+      title: BehavioralNetwork
+      description: Estructura que define la respuesta para la regla behavioral network
     Filter:
       title: Filter
       type: object
