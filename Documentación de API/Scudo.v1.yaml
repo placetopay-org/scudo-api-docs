@@ -2271,10 +2271,10 @@ components:
           description: Puntaje obtenido de la regla
         service_response:
           oneOf:
-            - $ref: '#/components/schemas/Kount'
             - $ref: '#/components/schemas/Emailage'
-            - $ref: '#/components/schemas/Transunion'
             - $ref: '#/components/schemas/Historical'
+            - $ref: '#/components/schemas/Kount'
+            - $ref: '#/components/schemas/Transunion'
             - $ref: '#/components/schemas/BehavioralNetwork'
           description: Estructura que define los tipos de respuesta de los servicios
   responses: {}
