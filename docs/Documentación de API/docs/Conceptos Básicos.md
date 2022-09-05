@@ -1,11 +1,10 @@
 ## Secuencia de SCUDO
 
 ### Validación exitosa
-![Secuencia API Scudo-Página-2.drawio.png](https://stoplight.io/api/v1/projects/cHJqOjE1MDQz/images/KsTRSpQNhcU)
-
-
 ![MicrosoftTeams-image (10).png](https://stoplight.io/api/v1/projects/cHJqOjE1MDQz/images/IxHwMaAerqc)
 
+
+### Procesamiento manual
 ![MicrosoftTeams-image (11).png](https://stoplight.io/api/v1/projects/cHJqOjE1MDQz/images/L2GqOG1KaAs)
 
 ## Conceptos
