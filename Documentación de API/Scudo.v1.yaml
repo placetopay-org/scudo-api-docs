@@ -1669,6 +1669,8 @@ components:
               type: integer
               example: 355
               description: Monto total de la transacción/pago ( en formato unidad menor)
+              exclusiveMinimum: true
+              minimum: 1
       required:
         - reference
         - amount
