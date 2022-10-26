@@ -2030,32 +2030,28 @@ components:
       type: object
       x-examples:
         example-1:
-          match: false
-          failed: false
           score: '10'
-          service_response:
-            score: '10'
-            decision: A
-            decisionDescription: APPROVE
-            deviceLayers: DF651ACF30..99CF09F417.E3D16F2CB7.061826EF2B
-            userAgent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML like Gecko) Chrome/76.0.3809.100 Safari/537.36
-            operativeSystem: Mac OS X 10.14.6
-            screenResolution: 1050x1680
-            ipAddress: 208.75.113.3
-            ipLatitude: '43.6337'
-            ipLongitude: '-116.2004'
-            ipCountry: US
-            ipState: Idaho
-            ipCity: Boise
-            ipProvider: PENDING
-            fingerprint: 290D1C0172364AADAC25D9FD0B13D946
-            language: en
-            errors:
-              - ERROR_1
-              - ERROR_2
-            quantityErrors: 0
-            errorMessage: null
-            isExecuted: true
+          decision: A
+          decisionDescription: APPROVE
+          deviceLayers: DF651ACF30..99CF09F417.E3D16F2CB7.061826EF2B
+          userAgent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML like Gecko) Chrome/76.0.3809.100 Safari/537.36
+          operativeSystem: Mac OS X 10.14.6
+          screenResolution: 1050x1680
+          ipAddress: 208.75.113.3
+          ipLatitude: '43.6337'
+          ipLongitude: '-116.2004'
+          ipCountry: US
+          ipState: Idaho
+          ipCity: Boise
+          ipProvider: PENDING
+          fingerprint: 290D1C0172364AADAC25D9FD0B13D946
+          language: en
+          errors:
+            - ERROR_1
+            - ERROR_2
+          quantityErrors: 0
+          errorMessage: null
+          isExecuted: true
       properties:
         score:
           type: string
