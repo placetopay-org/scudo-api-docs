@@ -272,6 +272,11 @@ paths:
                               - match_country_ip_and_issuer_bank
                               - custom
                               - amount_by_transaction
+                              - CLIENT_IDENTIFIER
+                              - IP_ADDRESS
+                              - CREDIT_CARD
+                              - EMAIL
+                              - BIN
                             description: Código de la regla que define la acción recomendada
                       rules:
                         type: array
@@ -309,6 +314,11 @@ paths:
                                 - match_country_ip_and_issuer_bank
                                 - custom
                                 - amount_by_transaction
+                                - CLIENT_IDENTIFIER
+                                - IP_ADDRESS
+                                - CREDIT_CARD
+                                - EMAIL
+                                - BIN
                               description: Código de la regla
                             type:
                               enum:
@@ -913,6 +923,11 @@ paths:
                                 - match_country_ip_and_issuer_bank
                                 - custom
                                 - amount_by_transaction
+                                - CLIENT_IDENTIFIER
+                                - IP_ADDRESS
+                                - CREDIT_CARD
+                                - EMAIL
+                                - BIN
                               description: Código de la regla
                             type:
                               type: string
