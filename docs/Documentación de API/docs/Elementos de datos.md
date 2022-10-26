@@ -43,9 +43,9 @@ Manual | c393bb89bcb92c7d95d405f26699b33f4956c92f607fbe8c2facb836c762382b | 4212
 
 Código de regla | tipo | 
 ---------|----------|
- emailage | puntaje | 
- kount | puntaje | 
- historical | puntaje |
+emailage | puntaje | 
+kount | puntaje | 
+historical | puntaje |
 transunion | puntaje | 
 allowed_countries_for_issuer_bank | filtro | 
 match_country_ip_and_issuer_bank | filtro | 
@@ -55,6 +55,11 @@ number_of_cards_by_client | filtro |
 number_of_transactions_by_client | filtro | 
 amount_by_client | filtro | 
 custom | filtro |
+CLIENT_IDENTIFIER | filtro restrictivo o permisivo
+IP_ADDRESS | filtro restrictivo o permisivo
+CREDIT_CARD | filtro restrictivo o permisivo
+EMAIL | filtro restrictivo o permisivo
+BIN | filtro restrictivo o permisivo
 
 
 ### Tabla 5. Razones de resolución de validaciones 
