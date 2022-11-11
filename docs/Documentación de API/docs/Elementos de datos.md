@@ -47,6 +47,7 @@ emailage | puntaje |
 kount | puntaje | 
 historical | puntaje |
 transunion | puntaje | 
+behavioral_network | puntaje | 
 allowed_countries_for_issuer_bank | filtro | 
 match_country_ip_and_issuer_bank | filtro | 
 exclude_country_match_for_issuers | filtro | 
