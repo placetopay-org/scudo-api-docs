@@ -1,7 +1,8 @@
 ## Secuencia de SCUDO
 
 ### Validación exitosa
-![MicrosoftTeams-image (10).png](https://stoplight.io/api/v1/projects/cHJqOjE1MDQz/images/IxHwMaAerqc)
+![image.png](../../../assets/images/image.png)
+
 
 
 ### Validación manual de una transacción
