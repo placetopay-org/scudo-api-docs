@@ -81,7 +81,7 @@ paths:
                   description: Agente de usuario del cliente
                 additional:
                   type: object
-                  description: 'Es un objeto que permite enviar datos adicionales en formato JSON '
+                  description: 'Es un objeto que permite enviar datos adicionalmes en formato JSON. En Colombia hace referencia al retail-code del comercio, en otros paises hace referencia al codigo único del comercio.'
                   nullable: true
               required:
                 - payer
