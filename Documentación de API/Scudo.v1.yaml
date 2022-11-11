@@ -466,6 +466,17 @@ paths:
                             match: false
                             failed: false
                             score: '320'
+                            service_response:
+                              risk: high
+                              score: '1000'
+                              reason: high
+                              email: test@test.com
+                              panHash: 02C3C62FB7C7EB153F16219E44CDFAA85C41814D
+                              document: CC 1040035000
+                              mobile: '3152807334'
+                              phone: '2261751'
+                              ipAddress: 132.248.0.1
+                              date: null
                         - action: continue_with_next_rule
                           name: Emailage
                           rule_code: emailage
@@ -556,6 +567,8 @@ paths:
                                   description: Similitud con historial de pago
                               reliable: true
                               errorMessage: null
+        '201':
+          description: Created
         '422':
           description: Unprocessable Entity (WebDAV)
           content:
