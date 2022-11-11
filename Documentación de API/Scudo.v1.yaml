@@ -305,6 +305,7 @@ paths:
                                 - kount
                                 - historical
                                 - transunion
+                                - behavioral_network
                                 - allowed_countries_for_issuer_bank
                                 - exclude_country_match_for_issuers
                                 - allowed_countries_for_buyers
