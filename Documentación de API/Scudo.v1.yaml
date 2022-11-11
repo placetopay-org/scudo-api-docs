@@ -81,7 +81,7 @@ paths:
                   description: Agente de usuario del cliente
                 additional:
                   type: object
-                  description: 'Es un objeto que permite enviar datos adicionalmes en formato JSON.'
+                  description: Es un objeto que permite enviar datos adicionalmes en formato JSON.
                   nullable: true
               required:
                 - payer
@@ -541,6 +541,22 @@ paths:
                             match: false
                             failed: false
                             score: '995'
+                            service_response:
+                              document: '123456789'
+                              documentType: CC
+                              fullName: Foo
+                              documentStatus: 1
+                              documentStatusText: Vigente
+                              ageRange: ''
+                              sheetCode: '05521509999999999999'
+                              sheetDateTime: '2021-02-25T08:50:16-05:00'
+                              returnCode: 1
+                              returnText: Consulta exitosa
+                              score: '995'
+                              match: true
+                              errorMessage: null
+                              failed: false
+                              isExecuted: true
                         - action: reject_transaction
                           name: Red de comportamiento
                           rule_code: behavioral_network
@@ -1742,7 +1758,7 @@ components:
             - last_4
         merchant_code:
           type: string
-          description: Código del comercio. En Colombia hace referencia al retail-code del comercio, en otros paises hace referencia al codigo único del comercio.
+          description: 'Código del comercio. En Colombia hace referencia al retail-code del comercio, en otros paises hace referencia al codigo único del comercio.'
           nullable: true
     Status:
       title: Status
