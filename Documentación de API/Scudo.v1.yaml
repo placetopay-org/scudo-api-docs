@@ -86,7 +86,6 @@ paths:
               required:
                 - payer
                 - payment
-                - instrument
                 - ip_address
                 - user_agent
             examples:
