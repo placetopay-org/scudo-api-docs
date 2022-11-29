@@ -697,22 +697,6 @@ paths:
                     data:
                       id: 81d1ed97-5bd2-4242-8015-12867fdb475a
                       status: approved
-                ejemplo fallido no se puede cambiar el estado:
-                  value:
-                    status:
-                      code: 1350
-                      name: failed
-                      message: El estado real es (approved) y no se puede cambiar a (approved)
-                    data:
-                      id: 81d1ed97-5bd2-4242-8015-12867fdb475a
-                      status: approved
-                ejemplo no exitoso:
-                  value:
-                    status:
-                      code: 1301
-                      name: id_missmatch
-                      message: 'The id or reference, does not match in scudo'
-                    data: null
           headers: {}
         '422':
           description: Unprocessable Entity
@@ -731,14 +715,17 @@ paths:
                     status:
                       code: 1301
                       name: id_missmatch
+                      message: 'El id o referencia, no coincide en scudo'
                     data: null
                 example-wrong-status:
                   value:
                     status:
-                      code: 1202
-                      name: wrong_field_format
-                      message: 'Invalid elements: [transaction.status] (see endpoint documentation)'
-                    data: null
+                      code: 1350
+                      name: failed
+                      message: El estado real es (approved) y no se puede cambiar a (approved)
+                    data:
+                      id: 6c91783a-c815-4175-a722-81b7cb080599
+                      status: approved
                 Cannot change status:
                   value:
                     status:
