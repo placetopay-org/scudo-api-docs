@@ -352,7 +352,6 @@ paths:
                                           type: string
                                     failed:
                                       type: boolean
-                              description: Objeto que agrupa el resultado de la regla ejecutada
                           required:
                             - name
                             - rule_code
