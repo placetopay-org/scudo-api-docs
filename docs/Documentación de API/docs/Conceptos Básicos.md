@@ -6,7 +6,7 @@
 
 
 ### Validación manual de una transacción
-![manual-validation.png](<../../../assets/images/manual-validation.png>)
+![manual-validation.png](../../../assets/images/manual-validation.png)
 
 ## Conceptos
 
