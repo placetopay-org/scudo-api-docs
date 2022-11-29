@@ -6,7 +6,7 @@
 
 
 ### Validación manual de una transacción
-![MicrosoftTeams-image (11).png](https://stoplight.io/api/v1/projects/cHJqOjE1MDQz/images/L2GqOG1KaAs)
+![manual-validation.png](<../../../assets/images/manual-validation.png>)
 
 ## Conceptos
 
