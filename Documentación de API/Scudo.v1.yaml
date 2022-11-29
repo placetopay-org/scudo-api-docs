@@ -582,8 +582,6 @@ paths:
                                   description: Similitud con historial de pago
                               reliable: true
                               errorMessage: null
-        '201':
-          description: Created
         '422':
           description: Unprocessable Entity (WebDAV)
           content:
