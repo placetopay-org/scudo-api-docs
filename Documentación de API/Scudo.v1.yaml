@@ -2251,7 +2251,7 @@ components:
         isExecuted:
           type: boolean
       x-examples:
-        example-1:
+        successful:
           document: '123456789'
           documentType: CC
           fullName: Foo
@@ -2267,6 +2267,22 @@ components:
           errorMessage: null
           failed: false
           isExecuted: true
+        información faltante:
+          document: null
+          documentType: null
+          fullName: null
+          documentStatus: null
+          documentStatusText: null
+          ageRange: null
+          sheetCode: null
+          sheetDateTime: null
+          returnCode: 1201
+          returnText: null
+          score: null
+          match: false
+          errorMessage: 'Elementos faltantes: [payer.document_type] (consulte la documentación del enpoint)'
+          failed: true
+          isExecuted: false
       title: Transunion
       description: Estructura que define la respuesta para la regla Transunion
     BehavioralNetwork:
