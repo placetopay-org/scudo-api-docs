@@ -42,14 +42,12 @@ paths:
             example: application/json;charset=UTF-8
           in: header
           name: Content-Type
-          required: true
         - schema:
             type: string
             example: H0zMsPiLzegkYMFJxAuKJhUsyEimYstc
           in: header
           name: Api-Key
           description: Este parámetro contiene la clave de api proporcionada por Evertec
-          required: true
       requestBody:
         content:
           application/json:
@@ -83,9 +81,6 @@ paths:
                   type: object
                   description: Es un objeto que permite enviar datos adicionalmes en formato JSON.
                   nullable: true
-              required:
-                - payer
-                - payment
             examples:
               ejemplo exitoso:
                 value:
@@ -229,8 +224,6 @@ paths:
                       transaction:
                         type: object
                         description: Objeto que agrupa la información de la transacción del cliente
-                        required:
-                          - reference
                         properties:
                           reference:
                             type: string
@@ -239,9 +232,6 @@ paths:
                       action:
                         type: object
                         description: Objeto que agrupa la acción recomendada
-                        required:
-                          - name
-                          - performed_by
                         properties:
                           name:
                             type: string
@@ -350,15 +340,6 @@ paths:
                                           type: string
                                     failed:
                                       type: boolean
-                          required:
-                            - name
-                            - rule_code
-                            - type
-                            - response
-                    required:
-                      - id
-                      - transaction
-                      - action
               examples:
                 ejemplo exitoso:
                   value:
