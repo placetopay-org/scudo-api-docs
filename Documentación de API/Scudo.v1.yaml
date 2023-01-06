@@ -81,6 +81,12 @@ paths:
                   type: object
                   description: Es un objeto que permite enviar datos adicionalmes en formato JSON.
                   nullable: true
+              required:
+                - payer
+                - payment
+                - instrument
+                - ip_address
+                - user_agent
             examples:
               ejemplo exitoso:
                 value:
@@ -224,6 +230,8 @@ paths:
                       transaction:
                         type: object
                         description: Objeto que agrupa la información de la transacción del cliente
+                        required:
+                          - reference
                         properties:
                           reference:
                             type: string
@@ -232,6 +240,9 @@ paths:
                       action:
                         type: object
                         description: Objeto que agrupa la acción recomendada
+                        required:
+                          - name
+                          - performed_by
                         properties:
                           name:
                             type: string
@@ -340,6 +351,15 @@ paths:
                                           type: string
                                     failed:
                                       type: boolean
+                          required:
+                            - name
+                            - rule_code
+                            - type
+                            - response
+                    required:
+                      - id
+                      - transaction
+                      - action
               examples:
                 ejemplo exitoso:
                   value:
