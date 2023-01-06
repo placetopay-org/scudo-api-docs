@@ -81,6 +81,31 @@ paths:
                   type: object
                   description: Es un objeto que permite enviar datos adicionalmes en formato JSON.
                   nullable: true
+                fingerprints:
+                  type: object
+                  description: Objeto que agrupa los diferentes 'fingerprints' que se pueden validar
+                  properties:
+                    placetopay:
+                      type: string
+                      maxLength: 64
+                    kount:
+                      type: string
+                      maxLength: 64
+                    RSA:
+                      type: string
+                      maxLength: 64
+                    lexis_nexis:
+                      type: string
+                      maxLength: 64
+                    device_1:
+                      type: string
+                      maxLength: 64
+                    device_2:
+                      type: string
+                      maxLength: 64
+                    device_app:
+                      type: string
+                      maxLength: 64
               required:
                 - payer
                 - payment
@@ -159,6 +184,14 @@ paths:
                     object:
                       key: value
                       second_key: 'second value '
+                  fingerprints:
+                    placetopay: 16aa112b4ebb8bf7152421c1a0ae7dc5c2a4c8046877b9c9264bceec24a4d3da
+                    kount: 26aa112b4ebb8bf7152421c1a0ae7dc5c2a4c8046877b9c9264bceec24a4d3da
+                    RSA: 36aa112b4ebb8bf7152421c1a0ae7dc5c2a4c8046877b9c9264bceec24a4d3da
+                    lexis_nexis: 46aa112b4ebb8bf7152421c1a0ae7dc5c2a4c8046877b9c9264bceec24a4d3da
+                    device_2: 56aa112b4ebb8bf7152421c1a0ae7dc5c2a4c8046877b9c9264bceec24a4d3da
+                    device_1: 66aa112b4ebb8bf7152421c1a0ae7dc5c2a4c8046877b9c9264bceec24a4d3da
+                    device_app: 76aa112b4ebb8bf7152421c1a0ae7dc5c2a4c8046877b9c9264bceec24a4d3da
               ejemplo campo faltante:
                 value:
                   locale: es_CO
