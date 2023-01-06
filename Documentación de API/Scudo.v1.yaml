@@ -468,13 +468,16 @@ paths:
                                 email: test@test.com
                                 age: ''
                                 country: US
+                                company: ''
                                 exists: 'Yes'
                                 status: Verified
                                 firstSeen: '2010-07-17T07:00:00Z'
+                                firstSeenDays: '3617'
                                 lastSeen: '2020-06-12T03:37:56Z'
                                 imageUrl: ''
-                                hits: null
+                                hits: '2'
                                 uniqueHits: '1'
+                                creationDays: ''
                                 domain:
                                   name: gmail.com
                                   age: '1995-08-13T04:00:00Z'
@@ -484,19 +487,99 @@ paths:
                                   company: Google
                                   countryName: United States
                                   riskLevel: '3'
+                                  riskCountry: 'No'
                                   riskLevelMessage: Moderate
                                   relevantInfo: '508'
                                   relevantInfoMessage: Valid Webmail Domain from United States
+                                  creationDays: '9069'
+                                  fraudRisk: 071 Very Low
+                              addressInformation:
+                                billRiskCountry: 'No'
+                                cityPostalMatch: 'Yes'
+                                domainCountryMatch: 'Yes'
+                                shippingCityPostalMatch: 'No'
+                                shippingForward: ''
                               ipInformation:
-                                ip: 127.0.0.1
-                                riskLevel: '1'
-                                riskLevelMessage: Very High
-                                isp: att services inc.
-                                country: United States
-                                region: alaska
+                                ip: 132.248.0.1
+                                anonymousDetected: null
+                                autonomousSystemNumber: null
                                 city: fairbanks
+                                corporateProxy: null
+                                country: CO
+                                countryMatch: null
+                                domain: null
+                                isp: null
+                                region: latinamerica
                                 latitude: '64.8363'
                                 longitude: '-147.715'
+                                netSpeed: null
+                                organization: null
+                                reputation: null
+                                userType: null
+                              digitalIdentityScoreInformation:
+                                description: High Confidence
+                                overallScore: 87
+                                billAddressToFullNameConfidence: 66
+                                billAddressToLastNameConfidence: 55
+                                emailToIpConfidence: 80
+                                emailToBillAddressConfidence: 78
+                                emailToFullNameConfidence: 88
+                                emailToLastNameConfidence: 89
+                                emailToPhoneConfidence: 44
+                                emailToShipAddressConfidence: 78
+                                ipToBillAddressConfidence: 90
+                                ipToFullNameConfidence: 45
+                                ipToLastNameConfidence: 56
+                                ipToPhoneConfidence: 71
+                                ipToShipAddressConfidence: 100
+                                phoneToBillAddressConfidence: 100
+                                phoneToFullNameConfidence: 97
+                                phoneToLastNameConfidence: 34
+                                phoneToShipAddressConfidence: 87
+                                shipAddressToBillAddressConfidence: 77
+                                shipAddressToFullNameConfidence: 78
+                                shipAddressToLastNameConfidence: 34
+                              ipRiskInformation:
+                                level: '3'
+                                levelMessage: Moderate
+                                reasonId: '311'
+                                reason: Moderate By Proxy Reputation And Country Code
+                                riskCountry: ''
+                              ipLocationInformation:
+                                callingCode: '907'
+                                city: fairbanks
+                                cityConfidence: '95'
+                                continentCode: na
+                                country: Colombia
+                                countryCode: CO
+                                countryConfidence: '99'
+                                distanceMil: '5366'
+                                distanceKm: '8637'
+                                latitude: '64.8363'
+                                longitude: '-147.715'
+                                map: 'https://app.emailage.com/query/GoogleMaps?latLng=64.8363,-147.715'
+                                metroCode: '745'
+                                region: latinamerica
+                                regionConfidence: '99'
+                                postalCode: '99701'
+                                postalConfidence: '50'
+                                timeZone: '-500'
+                              emailOwnerInformation: null
+                              phoneInformation:
+                                carrierName: Verizon Wireless
+                                carrierType: mobile
+                                inBillingLocation: Not Found
+                                owner: Test EA
+                                ownerMatch: 'Y'
+                                ownerType: CONSUMER
+                                status: VALID
+                              socialMediaInformation:
+                                smFriends: '53'
+                                smLinks:
+                                  - source: GoogleSearch
+                                    link: 'https://plus.google.com/115619223171371600000'
+                                  - source: Facebook
+                                    link: 'https://www.facebook.com/user'
                               score: '0'
                               riskReason: '14'
                               riskReasonMessage: Email Created at least 9.9 Years Ago
