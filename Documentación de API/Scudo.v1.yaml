@@ -1816,200 +1816,250 @@ components:
       required:
         - address
     Emailage:
-      description: Estructura que define la respuesta para la regla emailage
       type: object
-      x-examples:
-        Emailage:
-          emailInformation:
-            email: test@test.com
-            age: ''
-            country: US
-            exists: 'Yes'
-            status: Verified
-            firstSeen: '2010-07-17T07:00:00Z'
-            lastSeen: '2020-06-12T03:37:56Z'
-            imageUrl: ''
-            hits: null
-            uniqueHits: '1'
-            domain:
-              name: gmail.com
-              age: '1995-08-13T04:00:00Z'
-              category: Webmail
-              corporate: 'No'
-              exists: 'Yes'
-              company: Google
-              countryName: United States
-              riskLevel: '3'
-              riskLevelMessage: Moderate
-              relevantInfo: '508'
-              relevantInfoMessage: Valid Webmail Domain from United States
-          ipInformation:
-            ip: 127.0.0.1
-            riskLevel: '1'
-            riskLevelMessage: Very High
-            isp: att services inc.
-            country: United States
-            region: alaska
-            city: fairbanks
-            latitude: '64.8363'
-            longitude: '-147.715'
-          score: '0'
-          riskReason: '14'
-          riskReasonMessage: Email Created at least 9.9 Years Ago
-          riskStatus: '2'
-          riskAdvice: '3'
-          riskAdviceMessage: Lower Fraud Risk
-          riskBand: '1'
-          sourceIndustry: ''
-          fraudType: ''
-          lastFlaggedOn: ''
-          returnCode: '0'
-          returnMessage: ''
-          isExecuted: true
       properties:
-        score:
-          type: string
         emailInformation:
           type: object
-          required:
-            - email
-            - age
-            - country
-            - exists
-            - status
-            - firstSeen
-            - lastSeen
-            - imageUrl
-            - hits
-            - uniqueHits
-            - domain
           properties:
             email:
               type: string
-              minLength: 1
-              nullable: true
             age:
               type: string
-              nullable: true
             country:
               type: string
-              minLength: 1
-              nullable: true
+            company:
+              type: string
             exists:
               type: string
-              minLength: 1
-              nullable: true
             status:
               type: string
-              minLength: 1
-              nullable: true
             firstSeen:
               type: string
-              minLength: 1
-              nullable: true
+            firstSeenDays:
+              type: string
             lastSeen:
               type: string
-              minLength: 1
-              nullable: true
             imageUrl:
               type: string
-              nullable: true
             hits:
               type: string
-              nullable: true
             uniqueHits:
               type: string
-              nullable: true
+            creationDays:
+              type: string
             domain:
               type: object
-              required:
-                - name
-                - age
-                - category
-                - corporate
-                - exists
-                - company
-                - countryName
-                - riskLevel
-                - riskLevelMessage
-                - relevantInfo
-                - relevantInfoMessage
               properties:
                 name:
                   type: string
-                  minLength: 1
-                  nullable: true
                 age:
                   type: string
-                  minLength: 1
-                  nullable: true
                 category:
                   type: string
-                  minLength: 1
-                  nullable: true
                 corporate:
                   type: string
-                  minLength: 1
-                  nullable: true
                 exists:
                   type: string
-                  minLength: 1
-                  nullable: true
                 company:
                   type: string
-                  minLength: 1
-                  nullable: true
                 countryName:
                   type: string
-                  minLength: 1
-                  nullable: true
                 riskLevel:
                   type: string
-                  minLength: 1
-                  nullable: true
+                riskCountry:
+                  type: string
                 riskLevelMessage:
                   type: string
-                  minLength: 1
-                  nullable: true
                 relevantInfo:
                   type: string
-                  minLength: 1
-                  nullable: true
                 relevantInfoMessage:
                   type: string
-                  minLength: 1
-                  nullable: true
+                creationDays:
+                  type: string
+                fraudRisk:
+                  type: string
+        addressInformation:
+          type: object
+          properties:
+            billRiskCountry:
+              type: string
+            cityPostalMatch:
+              type: string
+            domainCountryMatch:
+              type: string
+            shippingCityPostalMatch:
+              type: string
+            shippingForward:
+              type: string
         ipInformation:
           type: object
-          nullable: true
           properties:
             ip:
               type: string
-              nullable: true
-            riskLevel:
-              type: string
-              nullable: true
-            riskLevelMessage:
-              type: string
-              nullable: true
-            isp:
-              type: string
-              nullable: true
-            country:
-              type: string
-              nullable: true
-            region:
-              type: string
-              nullable: true
+            anonymousDetected:
+              type: 'null'
+            autonomousSystemNumber:
+              type: 'null'
             city:
               type: string
-              nullable: true
+            corporateProxy:
+              type: 'null'
+            country:
+              type: string
+            countryMatch:
+              type: 'null'
+            domain:
+              type: 'null'
+            isp:
+              type: 'null'
+            region:
+              type: string
             latitude:
               type: string
-              nullable: true
             longitude:
               type: string
-              nullable: true
+            netSpeed:
+              type: 'null'
+            organization:
+              type: 'null'
+            reputation:
+              type: 'null'
+            userType:
+              type: 'null'
+        digitalIdentityScoreInformation:
+          type: object
+          properties:
+            description:
+              type: string
+            overallScore:
+              type: integer
+            billAddressToFullNameConfidence:
+              type: integer
+            billAddressToLastNameConfidence:
+              type: integer
+            emailToIpConfidence:
+              type: integer
+            emailToBillAddressConfidence:
+              type: integer
+            emailToFullNameConfidence:
+              type: integer
+            emailToLastNameConfidence:
+              type: integer
+            emailToPhoneConfidence:
+              type: integer
+            emailToShipAddressConfidence:
+              type: integer
+            ipToBillAddressConfidence:
+              type: integer
+            ipToFullNameConfidence:
+              type: integer
+            ipToLastNameConfidence:
+              type: integer
+            ipToPhoneConfidence:
+              type: integer
+            ipToShipAddressConfidence:
+              type: integer
+            phoneToBillAddressConfidence:
+              type: integer
+            phoneToFullNameConfidence:
+              type: integer
+            phoneToLastNameConfidence:
+              type: integer
+            phoneToShipAddressConfidence:
+              type: integer
+            shipAddressToBillAddressConfidence:
+              type: integer
+            shipAddressToFullNameConfidence:
+              type: integer
+            shipAddressToLastNameConfidence:
+              type: integer
+        ipRiskInformation:
+          type: object
+          properties:
+            level:
+              type: string
+            levelMessage:
+              type: string
+            reasonId:
+              type: string
+            reason:
+              type: string
+            riskCountry:
+              type: string
+        ipLocationInformation:
+          type: object
+          properties:
+            callingCode:
+              type: string
+            city:
+              type: string
+            cityConfidence:
+              type: string
+            continentCode:
+              type: string
+            country:
+              type: string
+            countryCode:
+              type: string
+            countryConfidence:
+              type: string
+            distanceMil:
+              type: string
+            distanceKm:
+              type: string
+            latitude:
+              type: string
+            longitude:
+              type: string
+            map:
+              type: string
+            metroCode:
+              type: string
+            region:
+              type: string
+            regionConfidence:
+              type: string
+            postalCode:
+              type: string
+            postalConfidence:
+              type: string
+            timeZone:
+              type: string
+        emailOwnerInformation:
+          type: 'null'
+        phoneInformation:
+          type: object
+          properties:
+            carrierName:
+              type: string
+            carrierType:
+              type: string
+            inBillingLocation:
+              type: string
+            owner:
+              type: string
+            ownerMatch:
+              type: string
+            ownerType:
+              type: string
+            status:
+              type: string
+        socialMediaInformation:
+          type: object
+          properties:
+            smFriends:
+              type: string
+            smLinks:
+              type: array
+              items:
+                type: object
+                properties:
+                  source:
+                    type: string
+                  link:
+                    type: string
+        score:
+          type: string
         riskReason:
           type: string
         riskReasonMessage:
@@ -2034,23 +2084,137 @@ components:
           type: string
         isExecuted:
           type: boolean
-      required:
-        - score
-        - emailInformation
-        - ipInformation
-        - riskReason
-        - riskReasonMessage
-        - riskStatus
-        - riskAdvice
-        - riskAdviceMessage
-        - riskBand
-        - sourceIndustry
-        - fraudType
-        - lastFlaggedOn
-        - returnCode
-        - returnMessage
-        - isExecuted
-      title: Emailage
+      x-examples:
+        Example 1:
+          emailInformation:
+            email: test@test.com
+            age: ''
+            country: US
+            company: ''
+            exists: 'Yes'
+            status: Verified
+            firstSeen: '2010-07-17T07:00:00Z'
+            firstSeenDays: '3617'
+            lastSeen: '2020-06-12T03:37:56Z'
+            imageUrl: ''
+            hits: '2'
+            uniqueHits: '1'
+            creationDays: ''
+            domain:
+              name: gmail.com
+              age: '1995-08-13T04:00:00Z'
+              category: Webmail
+              corporate: 'No'
+              exists: 'Yes'
+              company: Google
+              countryName: United States
+              riskLevel: '3'
+              riskCountry: 'No'
+              riskLevelMessage: Moderate
+              relevantInfo: '508'
+              relevantInfoMessage: Valid Webmail Domain from United States
+              creationDays: '9069'
+              fraudRisk: 071 Very Low
+          addressInformation:
+            billRiskCountry: 'No'
+            cityPostalMatch: 'Yes'
+            domainCountryMatch: 'Yes'
+            shippingCityPostalMatch: 'No'
+            shippingForward: ''
+          ipInformation:
+            ip: 132.248.0.1
+            anonymousDetected: null
+            autonomousSystemNumber: null
+            city: fairbanks
+            corporateProxy: null
+            country: CO
+            countryMatch: null
+            domain: null
+            isp: null
+            region: latinamerica
+            latitude: '64.8363'
+            longitude: '-147.715'
+            netSpeed: null
+            organization: null
+            reputation: null
+            userType: null
+          digitalIdentityScoreInformation:
+            description: High Confidence
+            overallScore: 87
+            billAddressToFullNameConfidence: 66
+            billAddressToLastNameConfidence: 55
+            emailToIpConfidence: 80
+            emailToBillAddressConfidence: 78
+            emailToFullNameConfidence: 88
+            emailToLastNameConfidence: 89
+            emailToPhoneConfidence: 44
+            emailToShipAddressConfidence: 78
+            ipToBillAddressConfidence: 90
+            ipToFullNameConfidence: 45
+            ipToLastNameConfidence: 56
+            ipToPhoneConfidence: 71
+            ipToShipAddressConfidence: 100
+            phoneToBillAddressConfidence: 100
+            phoneToFullNameConfidence: 97
+            phoneToLastNameConfidence: 34
+            phoneToShipAddressConfidence: 87
+            shipAddressToBillAddressConfidence: 77
+            shipAddressToFullNameConfidence: 78
+            shipAddressToLastNameConfidence: 34
+          ipRiskInformation:
+            level: '3'
+            levelMessage: Moderate
+            reasonId: '311'
+            reason: Moderate By Proxy Reputation And Country Code
+            riskCountry: ''
+          ipLocationInformation:
+            callingCode: '907'
+            city: fairbanks
+            cityConfidence: '95'
+            continentCode: na
+            country: Colombia
+            countryCode: CO
+            countryConfidence: '99'
+            distanceMil: '5366'
+            distanceKm: '8637'
+            latitude: '64.8363'
+            longitude: '-147.715'
+            map: 'https://app.emailage.com/query/GoogleMaps?latLng=64.8363,-147.715'
+            metroCode: '745'
+            region: latinamerica
+            regionConfidence: '99'
+            postalCode: '99701'
+            postalConfidence: '50'
+            timeZone: '-500'
+          emailOwnerInformation: null
+          phoneInformation:
+            carrierName: Verizon Wireless
+            carrierType: mobile
+            inBillingLocation: Not Found
+            owner: Test EA
+            ownerMatch: 'Y'
+            ownerType: CONSUMER
+            status: VALID
+          socialMediaInformation:
+            smFriends: '53'
+            smLinks:
+              - source: GoogleSearch
+                link: 'https://plus.google.com/115619223171371600000'
+              - source: Facebook
+                link: 'https://www.facebook.com/user'
+          score: '0'
+          riskReason: '14'
+          riskReasonMessage: Email Created at least 9.9 Years Ago
+          riskStatus: '2'
+          riskAdvice: '3'
+          riskAdviceMessage: Lower Fraud Risk
+          riskBand: '1'
+          sourceIndustry: ''
+          fraudType: ''
+          lastFlaggedOn: ''
+          returnCode: '0'
+          returnMessage: ''
+          isExecuted: true
     Kount:
       description: Estructura que define la respuesta para la regla kount
       type: object
