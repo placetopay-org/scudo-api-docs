@@ -2215,6 +2215,8 @@ components:
           returnCode: '0'
           returnMessage: ''
           isExecuted: true
+      title: Emailage
+      description: Estructura que define la respuesta para la regla emailage
     Kount:
       description: Estructura que define la respuesta para la regla kount
       type: object
