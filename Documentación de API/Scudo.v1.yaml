@@ -84,6 +84,9 @@ paths:
                 fingerprints:
                   type: object
                   description: Objeto que agrupa los diferentes 'fingerprints' que se pueden validar
+                  minProperties: 1
+                  maxProperties: 7
+                  nullable: true
                   properties:
                     placetopay:
                       type: string
