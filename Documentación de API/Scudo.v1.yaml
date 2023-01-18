@@ -2625,6 +2625,8 @@ components:
             code: null
             key: null
             errors: []
+      title: Kount
+      description: Estructura que define la respuesta para la regla kount
     Historical:
       title: Historical
       x-examples:
