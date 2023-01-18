@@ -435,28 +435,80 @@ paths:
                             failed: false
                             score: '10'
                             service_response:
-                              score: '10'
-                              decision: A
-                              decisionDescription: APPROVE
-                              deviceLayers: DF651ACF30..99CF09F417.E3D16F2CB7.061826EF2B
-                              userAgent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML like Gecko) Chrome/76.0.3809.100 Safari/537.36
-                              operativeSystem: Mac OS X 10.14.6
-                              screenResolution: 1050x1680
-                              ipAddress: 208.75.113.3
-                              ipLatitude: '43.6337'
-                              ipLongitude: '-116.2004'
-                              ipCountry: US
-                              ipState: Idaho
-                              ipCity: Boise
-                              ipProvider: PENDING
-                              fingerprint: 290D1C0172364AADAC25D9FD0B13D946
-                              language: en
-                              errors:
-                                - AUTH_ERR
-                                - MISSING_MODE
-                              quantityErrors: 0
-                              errorMessage: null
                               isExecuted: true
+                              score: '30'
+                              omniscore: '67'
+                              system:
+                                version: '0720'
+                                mode: Q
+                                merchantId: '201000'
+                                sessonId: '40'
+                                orderReference: 7e53ebb0-ae84-4f4d-9d98-36c3d74a0136
+                              decision:
+                                code: A
+                                description: APPROVE
+                                shouldApprove: true
+                                shouldDecline: false
+                                shouldReview: false
+                              verification:
+                                geolocationCountry: CO
+                                geolocationRegion: CO_02
+                                cardBrand: VISA
+                                cardIsBlacklisted: false
+                                aCatchVerificationHasBeenPerformed: false
+                                threeDsMerchantResponse: ''
+                                denialReasonCode: ''
+                              transaction:
+                                id: KNZ501674051
+                                usedCardsCount: 1
+                                usedDevicesCount: 1
+                                deviceLayers: DF651ACF30..99CF09F417.E3D16F2CB7.061826EF2B
+                                usedEmailsCount: 1
+                                velocity: 0
+                                maxAllowedVelocity: 0
+                                site: DEFAULT
+                                fingerprint: 4C2410BA22A64E21BF0C73EA88E48D7E
+                                timezone: '300'
+                                localtime: '2017-05-31 00:19'
+                                region: CO_02
+                                country: CO
+                                httpCountry: US
+                                hasProxy: false
+                                hasJavascript: true
+                                hasFlash: false
+                                hasCookies: true
+                                language: en
+                                processedFromMobileDevice: false
+                                mobileType: ''
+                                mobileIsThroughMobileForwarder: false
+                                processedFromVoiceDevice: false
+                                processedFromRemotePC: false
+                              ip:
+                                address: 181.128.85.221
+                                latitude: '6.2518'
+                                longitude: '-75.5636'
+                                country: CO
+                                state: Antioquia
+                                city: Medellin
+                                provider: UNE
+                              additional:
+                                dateSinceFirstMadeTransaction: ''
+                                screenResolution: 1050x1680
+                                userAgent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML like Gecko) Chrome/76.0.3809.100 Safari/537.36
+                                operativeSystem: Mac OS X 10.14.6
+                                browser: ''
+                                wasPreviouslyWhitelisted: false
+                              triggeredRules:
+                                '693746': GEOX Lower Risk Review Countries
+                              triggeredCounters:
+                                PAISESPARAREVISION: '1'
+                              warnings:
+                                - 401 EXTRA_DATA in request. Please see RIS spec for valid fields and ensure RIS input is URL encoded.
+                              errorsBag:
+                                isErrorResponse: false
+                                code: null
+                                key: null
+                                errors: []
                         - action: continue_with_next_rule
                           name: Monto por cliente
                           rule_code: amount_by_client
@@ -2338,114 +2390,241 @@ components:
       title: Emailage
       description: Estructura que define la respuesta para la regla emailage
     Kount:
-      description: Estructura que define la respuesta para la regla kount
       type: object
-      x-examples:
-        example-1:
-          score: '10'
-          decision: A
-          decisionDescription: APPROVE
-          deviceLayers: DF651ACF30..99CF09F417.E3D16F2CB7.061826EF2B
-          userAgent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML like Gecko) Chrome/76.0.3809.100 Safari/537.36
-          operativeSystem: Mac OS X 10.14.6
-          screenResolution: 1050x1680
-          ipAddress: 208.75.113.3
-          ipLatitude: '43.6337'
-          ipLongitude: '-116.2004'
-          ipCountry: US
-          ipState: Idaho
-          ipCity: Boise
-          ipProvider: PENDING
-          fingerprint: 290D1C0172364AADAC25D9FD0B13D946
-          language: en
-          errors:
-            - ERROR_1
-            - ERROR_2
-          quantityErrors: 0
-          errorMessage: null
-          isExecuted: true
       properties:
         score:
           type: string
-          minLength: 1
+        omniscore:
+          type: string
+        system:
+          type: object
+          properties:
+            version:
+              type: string
+            mode:
+              type: string
+            merchantId:
+              type: string
+            sessonId:
+              type: string
+            orderReference:
+              type: string
         decision:
-          type: string
-          minLength: 1
-        decisionDescription:
-          type: string
-          minLength: 1
-        deviceLayers:
-          type: string
-          minLength: 1
-        userAgent:
-          type: string
-          minLength: 1
-        operativeSystem:
-          type: string
-          minLength: 1
-        screenResolution:
-          type: string
-          minLength: 1
-        ipAddress:
-          type: string
-          minLength: 1
-        ipLatitude:
-          type: string
-          minLength: 1
-        ipLongitude:
-          type: string
-          minLength: 1
-        ipCountry:
-          type: string
-          minLength: 1
-        ipState:
-          type: string
-          minLength: 1
-        ipCity:
-          type: string
-          minLength: 1
-        ipProvider:
-          type: string
-          minLength: 1
-        fingerprint:
-          type: string
-          minLength: 1
-        language:
-          type: string
-          minLength: 1
-        errors:
+          type: object
+          properties:
+            code:
+              type: string
+            description:
+              type: string
+            shouldApprove:
+              type: boolean
+            shouldDecline:
+              type: boolean
+            shouldReview:
+              type: boolean
+        verification:
+          type: object
+          properties:
+            geolocationCountry:
+              type: string
+            geolocationRegion:
+              type: string
+            cardBrand:
+              type: string
+            cardIsBlacklisted:
+              type: boolean
+            aCatchVerificationHasBeenPerformed:
+              type: boolean
+            threeDsMerchantResponse:
+              type: string
+            denialReasonCode:
+              type: string
+        transaction:
+          type: object
+          properties:
+            id:
+              type: string
+            usedCardsCount:
+              type: integer
+            usedDevicesCount:
+              type: integer
+            deviceLayers:
+              type: string
+            usedEmailsCount:
+              type: integer
+            velocity:
+              type: integer
+            maxAllowedVelocity:
+              type: integer
+            site:
+              type: string
+            fingerprint:
+              type: string
+            timezone:
+              type: string
+            localtime:
+              type: string
+            region:
+              type: string
+            country:
+              type: string
+            httpCountry:
+              type: string
+            hasProxy:
+              type: boolean
+            hasJavascript:
+              type: boolean
+            hasFlash:
+              type: boolean
+            hasCookies:
+              type: boolean
+            language:
+              type: string
+            processedFromMobileDevice:
+              type: boolean
+            mobileType:
+              type: string
+            mobileIsThroughMobileForwarder:
+              type: boolean
+            processedFromVoiceDevice:
+              type: boolean
+            processedFromRemotePC:
+              type: boolean
+        ip:
+          type: object
+          properties:
+            address:
+              type: string
+            latitude:
+              type: string
+            longitude:
+              type: string
+            country:
+              type: string
+            state:
+              type: string
+            city:
+              type: string
+            provider:
+              type: string
+        additional:
+          type: object
+          properties:
+            dateSinceFirstMadeTransaction:
+              type: string
+            screenResolution:
+              type: string
+            userAgent:
+              type: string
+            operativeSystem:
+              type: string
+            browser:
+              type: string
+            wasPreviouslyWhitelisted:
+              type: boolean
+        triggeredRules:
+          type: object
+          properties:
+            '693746':
+              type: string
+        triggeredCounters:
+          type: object
+          properties:
+            PAISESPARAREVISION:
+              type: string
+        warnings:
           type: array
           items:
             type: string
-        quantityErrors:
-          type: integer
-        errorMessage:
-          type: string
-          nullable: true
-        isExecuted:
-          type: boolean
-      required:
-        - score
-        - decision
-        - decisionDescription
-        - deviceLayers
-        - userAgent
-        - operativeSystem
-        - screenResolution
-        - ipAddress
-        - ipLatitude
-        - ipLongitude
-        - ipCountry
-        - ipState
-        - ipCity
-        - ipProvider
-        - fingerprint
-        - language
-        - errors
-        - quantityErrors
-        - errorMessage
-        - isExecuted
-      title: Kount
+        errorsBag:
+          type: object
+          properties:
+            isErrorResponse:
+              type: boolean
+            code:
+              type: 'null'
+            key:
+              type: 'null'
+            errors:
+              type: array
+              items:
+                type: object
+                properties: {}
+      x-examples:
+        Example 1:
+          score: '30'
+          omniscore: '67'
+          system:
+            version: '0720'
+            mode: Q
+            merchantId: '201000'
+            sessonId: '40'
+            orderReference: 7e53ebb0-ae84-4f4d-9d98-36c3d74a0136
+          decision:
+            code: A
+            description: APPROVE
+            shouldApprove: true
+            shouldDecline: false
+            shouldReview: false
+          verification:
+            geolocationCountry: CO
+            geolocationRegion: CO_02
+            cardBrand: VISA
+            cardIsBlacklisted: false
+            aCatchVerificationHasBeenPerformed: false
+            threeDsMerchantResponse: ''
+            denialReasonCode: ''
+          transaction:
+            id: KNZ501674051
+            usedCardsCount: 1
+            usedDevicesCount: 1
+            deviceLayers: DF651ACF30..99CF09F417.E3D16F2CB7.061826EF2B
+            usedEmailsCount: 1
+            velocity: 0
+            maxAllowedVelocity: 0
+            site: DEFAULT
+            fingerprint: 4C2410BA22A64E21BF0C73EA88E48D7E
+            timezone: '300'
+            localtime: '2017-05-31 00:19'
+            region: CO_02
+            country: CO
+            httpCountry: US
+            hasProxy: false
+            hasJavascript: true
+            hasFlash: false
+            hasCookies: true
+            language: en
+            processedFromMobileDevice: false
+            mobileType: ''
+            mobileIsThroughMobileForwarder: false
+            processedFromVoiceDevice: false
+            processedFromRemotePC: false
+          ip:
+            address: 181.128.85.221
+            latitude: '6.2518'
+            longitude: '-75.5636'
+            country: CO
+            state: Antioquia
+            city: Medellin
+            provider: UNE
+          additional:
+            dateSinceFirstMadeTransaction: ''
+            screenResolution: 1050x1680
+            userAgent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML like Gecko) Chrome/76.0.3809.100 Safari/537.36
+            operativeSystem: Mac OS X 10.14.6
+            browser: ''
+            wasPreviouslyWhitelisted: false
+          triggeredRules:
+            '693746': GEOX Lower Risk Review Countries
+          triggeredCounters:
+            PAISESPARAREVISION: '1'
+          warnings:
+            - 401 EXTRA_DATA in request. Please see RIS spec for valid fields and ensure RIS input is URL encoded.
+          errorsBag:
+            isErrorResponse: false
+            code: null
+            key: null
+            errors: []
     Historical:
       title: Historical
       x-examples:
