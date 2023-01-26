@@ -2391,6 +2391,83 @@ components:
       description: Estructura que define la respuesta para la regla emailage
     Kount:
       type: object
+      x-examples:
+        Example 1:
+          score: '30'
+          omniscore: '67'
+          system:
+            version: '0720'
+            mode: Q
+            merchantId: '201000'
+            sessonId: '40'
+            orderReference: 7e53ebb0-ae84-4f4d-9d98-36c3d74a0136
+          decision:
+            code: A
+            description: APPROVE
+            shouldApprove: true
+            shouldDecline: false
+            shouldReview: false
+          verification:
+            geolocationCountry: CO
+            geolocationRegion: CO_02
+            cardBrand: VISA
+            cardIsBlacklisted: false
+            aCatchVerificationHasBeenPerformed: false
+            threeDsMerchantResponse: ''
+            denialReasonCode: ''
+          transaction:
+            id: KNZ501674051
+            usedCardsCount: 1
+            usedDevicesCount: 1
+            deviceLayers: DF651ACF30..99CF09F417.E3D16F2CB7.061826EF2B
+            usedEmailsCount: 1
+            velocity: 0
+            maxAllowedVelocity: 0
+            site: DEFAULT
+            fingerprint: 4C2410BA22A64E21BF0C73EA88E48D7E
+            timezone: '300'
+            localtime: '2017-05-31 00:19'
+            region: CO_02
+            country: CO
+            httpCountry: US
+            hasProxy: false
+            hasJavascript: true
+            hasFlash: false
+            hasCookies: true
+            language: en
+            processedFromMobileDevice: false
+            mobileType: ''
+            mobileIsThroughMobileForwarder: false
+            processedFromVoiceDevice: false
+            processedFromRemotePC: false
+          ip:
+            address: 181.128.85.221
+            latitude: '6.2518'
+            longitude: '-75.5636'
+            country: CO
+            state: Antioquia
+            city: Medellin
+            provider: UNE
+          additional:
+            dateSinceFirstMadeTransaction: ''
+            screenResolution: 1050x1680
+            userAgent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML like Gecko) Chrome/76.0.3809.100 Safari/537.36
+            operativeSystem: Mac OS X 10.14.6
+            browser: ''
+            wasPreviouslyWhitelisted: false
+          triggeredRules:
+            '693746': GEOX Lower Risk Review Countries
+          triggeredCounters:
+            PAISESPARAREVISION: '1'
+          warnings:
+            - 401 EXTRA_DATA in request. Please see RIS spec for valid fields and ensure RIS input is URL encoded.
+          errorsBag:
+            isErrorResponse: false
+            code: null
+            key: null
+            errors: []
+      title: Kount
+      description: Estructura que define la respuesta para la regla kount
       properties:
         score:
           type: string
@@ -2524,14 +2601,8 @@ components:
               type: boolean
         triggeredRules:
           type: object
-          properties:
-            '693746':
-              type: string
         triggeredCounters:
           type: object
-          properties:
-            PAISESPARAREVISION:
-              type: string
         warnings:
           type: array
           items:
@@ -2542,91 +2613,13 @@ components:
             isErrorResponse:
               type: boolean
             code:
-              type: 'null'
+              nullable: true
             key:
-              type: 'null'
+              nullable: true
             errors:
               type: array
               items:
                 type: object
-                properties: {}
-      x-examples:
-        Example 1:
-          score: '30'
-          omniscore: '67'
-          system:
-            version: '0720'
-            mode: Q
-            merchantId: '201000'
-            sessonId: '40'
-            orderReference: 7e53ebb0-ae84-4f4d-9d98-36c3d74a0136
-          decision:
-            code: A
-            description: APPROVE
-            shouldApprove: true
-            shouldDecline: false
-            shouldReview: false
-          verification:
-            geolocationCountry: CO
-            geolocationRegion: CO_02
-            cardBrand: VISA
-            cardIsBlacklisted: false
-            aCatchVerificationHasBeenPerformed: false
-            threeDsMerchantResponse: ''
-            denialReasonCode: ''
-          transaction:
-            id: KNZ501674051
-            usedCardsCount: 1
-            usedDevicesCount: 1
-            deviceLayers: DF651ACF30..99CF09F417.E3D16F2CB7.061826EF2B
-            usedEmailsCount: 1
-            velocity: 0
-            maxAllowedVelocity: 0
-            site: DEFAULT
-            fingerprint: 4C2410BA22A64E21BF0C73EA88E48D7E
-            timezone: '300'
-            localtime: '2017-05-31 00:19'
-            region: CO_02
-            country: CO
-            httpCountry: US
-            hasProxy: false
-            hasJavascript: true
-            hasFlash: false
-            hasCookies: true
-            language: en
-            processedFromMobileDevice: false
-            mobileType: ''
-            mobileIsThroughMobileForwarder: false
-            processedFromVoiceDevice: false
-            processedFromRemotePC: false
-          ip:
-            address: 181.128.85.221
-            latitude: '6.2518'
-            longitude: '-75.5636'
-            country: CO
-            state: Antioquia
-            city: Medellin
-            provider: UNE
-          additional:
-            dateSinceFirstMadeTransaction: ''
-            screenResolution: 1050x1680
-            userAgent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML like Gecko) Chrome/76.0.3809.100 Safari/537.36
-            operativeSystem: Mac OS X 10.14.6
-            browser: ''
-            wasPreviouslyWhitelisted: false
-          triggeredRules:
-            '693746': GEOX Lower Risk Review Countries
-          triggeredCounters:
-            PAISESPARAREVISION: '1'
-          warnings:
-            - 401 EXTRA_DATA in request. Please see RIS spec for valid fields and ensure RIS input is URL encoded.
-          errorsBag:
-            isErrorResponse: false
-            code: null
-            key: null
-            errors: []
-      title: Kount
-      description: Estructura que define la respuesta para la regla kount
     Historical:
       title: Historical
       x-examples:
