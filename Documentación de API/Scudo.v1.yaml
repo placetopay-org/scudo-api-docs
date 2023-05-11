@@ -29,7 +29,9 @@ info:
     A través de nuestra plataforma Placetopay es posible configurar el sistema de control de fraude, visualizar transacciones, reglas aplicadas, usuarios, crear invitaciones, generar reportes y estadísticas.
 servers:
   - description: UAT
-    url: 'https://scudo-uat.placetopay.ws'
+    url: 'https://scudo-uat.placetopay.net'
+  - description: PRODUCTION
+    url: 'https://scudo.placetopay.com'
 paths:
   /api/v1/validate:
     post:
