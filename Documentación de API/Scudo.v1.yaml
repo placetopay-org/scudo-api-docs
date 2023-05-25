@@ -2602,9 +2602,13 @@ components:
             wasPreviouslyWhitelisted:
               type: boolean
         triggeredRules:
-          type: object
+          type:
+            - object
+            - array
         triggeredCounters:
-          type: object
+          type:
+            - object
+            - array
         warnings:
           type: array
           items:
