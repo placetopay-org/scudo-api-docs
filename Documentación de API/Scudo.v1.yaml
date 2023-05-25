@@ -2559,6 +2559,7 @@ components:
               type: boolean
             language:
               type: string
+              nullable: true
             processedFromMobileDevice:
               type: boolean
             mobileType:
