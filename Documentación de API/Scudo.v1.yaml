@@ -2667,37 +2667,6 @@ components:
           nullable: true
     Transunion:
       type: object
-      properties:
-        document:
-          type: string
-        documentType:
-          type: string
-        fullName:
-          type: string
-        documentStatus:
-          type: integer
-        documentStatusText:
-          type: string
-        ageRange:
-          type: string
-        sheetCode:
-          type: string
-        sheetDateTime:
-          type: string
-        returnCode:
-          type: integer
-        returnText:
-          type: string
-        score:
-          type: string
-        match:
-          type: boolean
-        errorMessage:
-          type: 'null'
-        failed:
-          type: boolean
-        isExecuted:
-          type: boolean
       x-examples:
         successful:
           document: '123456789'
@@ -2733,6 +2702,37 @@ components:
           isExecuted: false
       title: Transunion
       description: Estructura que define la respuesta para la regla Transunion
+      properties:
+        document:
+          type: string
+        documentType:
+          type: string
+        fullName:
+          type: string
+        documentStatus:
+          type: integer
+        documentStatusText:
+          type: string
+        ageRange:
+          type: string
+        sheetCode:
+          type: integer
+        sheetDateTime:
+          type: string
+        returnCode:
+          type: integer
+        returnText:
+          type: string
+        score:
+          type: string
+        match:
+          type: boolean
+        errorMessage:
+          nullable: true
+        failed:
+          type: boolean
+        isExecuted:
+          type: boolean
     BehavioralNetwork:
       type: object
       properties:
