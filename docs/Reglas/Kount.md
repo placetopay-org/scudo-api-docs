@@ -1,7 +1,7 @@
 # Kount 
 
 
-Datos de petición requeridos para una correcta ejecución de la regla 
+Datos de ejmplo de petición requeridos para una correcta ejecución de la regla 
 
 ```json
 {
