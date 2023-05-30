@@ -1,3 +1,7 @@
+---
+stoplight-id: ac0dfe32728e6
+---
+
 # Elementos de datos
 
 Las siguientes tablas muestran los códigos de constantes disponibles, motivos, tarjetas de prueba y reglas disponibles en la API de SCUDO.

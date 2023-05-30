@@ -1,3 +1,7 @@
+---
+stoplight-id: 6ccbf9a0d4ab5
+---
+
 # Firma
 
 Para la creación de una firma en los encabezados HTTP se debe tener los siguientes datos:

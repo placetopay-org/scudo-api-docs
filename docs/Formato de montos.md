@@ -1,3 +1,7 @@
+---
+stoplight-id: wtxsvdk4ehyfj
+---
+
 # Formato de montos
 
 Para enviar valores montos, se deben enviar en formato entero y no decimal, cambiando el valor decimal al formato con la unidad menor.

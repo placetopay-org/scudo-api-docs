@@ -1,3 +1,7 @@
+---
+stoplight-id: qmaq5jgf7xd8o
+---
+
 ## Secuencia de SCUDO
 
 ### Validación exitosa

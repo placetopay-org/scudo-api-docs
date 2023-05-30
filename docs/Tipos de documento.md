@@ -1,3 +1,7 @@
+---
+stoplight-id: sio9de8f9io3t
+---
+
 # Tipos de documento
 
 Al crear una sesión, si usa una de las estructuras `payer`, `buyer`, or `shipping`, debe usar el atributo document_type para enviar los siguientes códigos, según el país:
