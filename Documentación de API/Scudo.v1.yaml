@@ -2611,160 +2611,226 @@ components:
       properties:
         score:
           type: string
+          example: '30'
         omniscore:
           type: string
+          example: '67'
         system:
           type: object
           properties:
             version:
               type: string
+              example: "0720"
             mode:
               type: string
+              example: Q
             merchantId:
               type: string
+              example: "201000"
             sessonId:
               type: string
+              example: "40"
             orderReference:
               type: string
+              example: 7e53ebb0-ae84-4f4d-9d98-36c3d74a0136
         decision:
           type: object
           properties:
             code:
               type: string
+              example: A
             description:
               type: string
+              example: APPROVE
             shouldApprove:
               type: boolean
+              example: true
             shouldDecline:
               type: boolean
+              example: false
             shouldReview:
               type: boolean
+              example: false
         verification:
           type: object
           properties:
             geolocationCountry:
               type: string
+              example: CO
             geolocationRegion:
               type: string
+              example: CO_02
             cardBrand:
               type: string
+              example: VISA
             cardIsBlacklisted:
               type: boolean
+              example: false
             aCatchVerificationHasBeenPerformed:
               type: boolean
+              example: false
             threeDsMerchantResponse:
               type: string
+              example: ''
             denialReasonCode:
               type: string
+              example: ''
         transaction:
           type: object
           properties:
             id:
               type: string
+              example: KNZ501674051
             usedCardsCount:
               type: integer
+              example: 1
             usedDevicesCount:
               type: integer
+              example: 1
             deviceLayers:
               type: string
+              example: DF651ACF30..99CF09F417.E3D16F2CB7.061826EF2B
             usedEmailsCount:
               type: integer
+              example: 1
             velocity:
               type: integer
+              example: 0
             maxAllowedVelocity:
               type: integer
+              example: 0
             site:
               type: string
+              example: DEFAULT
             fingerprint:
               type: string
+              example: 4C2410BA22A64E21BF0C73EA88E48D7E
             timezone:
               type: string
+              example: '300'
             localtime:
               type: string
+              example: '2017-05-31 00:19'
             region:
               type: string
+              example: CO_02
             country:
               type: string
+              example: CO
             httpCountry:
               type: string
+              example: US
             hasProxy:
               type: boolean
+              example: false
             hasJavascript:
               type: boolean
+              example: true
             hasFlash:
               type: boolean
+              example: false
             hasCookies:
               type: boolean
+              example: true
             language:
+              example: en
               type: string
               nullable: true
             processedFromMobileDevice:
               type: boolean
+              example: false
             mobileType:
               type: string
+              example: ''
             mobileIsThroughMobileForwarder:
               type: boolean
+              example: false
             processedFromVoiceDevice:
               type: boolean
+              example: false
             processedFromRemotePC:
               type: boolean
+              example: false
         ip:
           type: object
           properties:
             address:
               type: string
+              example: 181.128.85.221
             latitude:
               type: string
+              example: '6.2518'
             longitude:
               type: string
+              example: '-75.5636'
             country:
               type: string
+              example: CO
             state:
               type: string
+              example: Antioquia
             city:
               type: string
+              example: Medellin
             provider:
               type: string
+              example: UNE
         additional:
           type: object
           properties:
             dateSinceFirstMadeTransaction:
               type: string
+              example: ''
             screenResolution:
               type: string
+              example: 1050x1680
             userAgent:
               type: string
+              example:  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML like Gecko) Chrome/76.0.3809.100 Safari/537.36
             operativeSystem:
               type: string
+              example: Mac OS X 10.14.6
             browser:
               type: string
+              example: ''
             wasPreviouslyWhitelisted:
               type: boolean
+              example: false
         triggeredRules:
           type:
             - object
             - array
+          example :
+              - '693746 : GEOX Lower Risk Review Countries'
         triggeredCounters:
           type:
             - object
             - array
+          example :
+            - 'PAISESPARAREVISION : 1'
         warnings:
           type: array
           items:
             type: string
+          example:  
+            - 401 EXTRA_DATA in request. Please see RIS spec for valid fields and ensure RIS input is URL encoded.
         errorsBag:
           type: object
           properties:
             isErrorResponse:
               type: boolean
+              example: false
             code:
               nullable: true
+              example: null
             key:
               nullable: true
+              example: null
             errors:
               type: array
               items:
                 type: object
+              example: []
     Historical:
       title: Historical
       x-examples:
