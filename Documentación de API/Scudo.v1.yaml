@@ -2968,6 +2968,7 @@ components:
       properties:
         fraudScore:
           type: number
+          example: 0.99
         fraudConcept:
           type: array
           items:
@@ -2975,10 +2976,13 @@ components:
             properties:
               code:
                 type: string
+                example: F22
               description:
                 type: string
+                example: Empresas fachada - Frecuencia inusual de país emisor tarjeta en comercio'
         legalScore:
           type: number
+          example: 0.01
         legalConcept:
           type: array
           items:
@@ -2986,12 +2990,16 @@ components:
             properties:
               code:
                 type: string
+                example: L11
               description:
                 type: string
+                example: Calidad de datos de sección de comercio
         reliable:
           type: boolean
+          example: true
         errorMessage:
           type: 'null'
+          example: null
       x-examples:
         example-1:
           fraudScore: 0.99
