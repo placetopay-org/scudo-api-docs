@@ -2920,33 +2920,48 @@ components:
       properties:
         document:
           type: string
+          example: '123456789'
         documentType:
           type: string
+          example: CC
         fullName:
           type: string
+          example: Foo
         documentStatus:
           type: integer
+          example: 1
         documentStatusText:
           type: string
+          example: Vigente
         ageRange:
           type: string
+          example: ''
         sheetCode:
           type: integer
+          example: 05521509999999999999
         sheetDateTime:
           type: string
+          example: '2021-02-25T08:50:16-05:00'
         returnCode:
           type: integer
+          example: 1
         returnText:
           type: string
+          example: Consulta exitosa
         score:
           type: string
+          example: '995'
         match:
           type: boolean
+          example: false
         errorMessage:
           nullable: true
+          example: null
         failed:
           type: boolean
+          example: false
         isExecuted:
+          example: true
           type: boolean
     BehavioralNetwork:
       type: object
