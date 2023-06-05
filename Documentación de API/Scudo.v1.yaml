@@ -2784,26 +2784,36 @@ components:
       properties:
         risk:
           type: string
+          example: high
         score:
           type: string
+          example: '1000'
         reason:
           type: string
+          example: high
         email:
           type: string
+          example: test@test.com
         panHash:
           type: string
+          example: 9bbef19476623ca56c17da75fd57734dbf82530686043a6e491c6d71befe8f6e
         document:
           type: string
           nullable: true
+          example: CC 1040035000
         mobile:
           type: string
+          example: '3152807334'
         phone:
           type: string
-        ipAddress:
+          example: '2261751'
+        ipAddress: 
           type: string
+          example: '132.248.0.1'
         date:
           type: string
           nullable: true
+          example: null
     Transunion:
       type: object
       x-examples:
