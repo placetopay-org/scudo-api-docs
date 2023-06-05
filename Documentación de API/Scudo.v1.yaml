@@ -2296,7 +2296,7 @@ components:
               type: string
               example: https://app.emailage.com/query/GoogleMaps?latLng=64.8363,-147.715
             metroCode:
-              type: 
+              type: string
               example: '745'
             region:
               type: string
