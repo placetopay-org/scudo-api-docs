@@ -2018,232 +2018,334 @@ components:
           properties:
             email:
               type: string
+              example: test@test.com
             age:
               type: string
+              example: 
             country:
               type: string
+              example: US
             company:
               type: string
+              example: 
             exists:
               type: string
+              example: Yes
             status:
               type: string
+              example: Verified
             firstSeen:
               type: string
+              example: "2010-07-17T07:00:00Z"
             firstSeenDays:
               type: string
+              example: 3617
             lastSeen:
               type: string
+              example: "2020-06-12T03:37:56Z"
             imageUrl:
               type: string
+              example: 
             hits:
               type: string
+              example: 2
             uniqueHits:
               type: string
+              example: 1
             creationDays:
               type: string
+              example: 
             domain:
               type: object
               properties:
                 name:
                   type: string
+                  example: 
                 age:
                   type: string
+                  example: 
                 category:
                   type: string
+                  example: Webmail
                 corporate:
                   type: string
+                  example: No
                 exists:
                   type: string
+                  example: Yes
                 company:
                   type: string
+                  example: Google
                 countryName:
                   type: string
+                  example: United States
                 riskLevel:
                   type: string
+                  example: 3
                 riskCountry:
                   type: string
+                  example: No
                 riskLevelMessage:
                   type: string
+                  example: Moderate
                 relevantInfo:
                   type: string
+                  example: 508
                 relevantInfoMessage:
                   type: string
+                  example: Valid Webmail Domain from United States
                 creationDays:
                   type: string
+                  example: 9069
                 fraudRisk:
                   type: string
+                  example: 071 Very Low
         addressInformation:
           type: object
           properties:
             billRiskCountry:
               type: string
+              example: No
             cityPostalMatch:
               type: string
+              example: Yes
             domainCountryMatch:
               type: string
+              example: Yes
             shippingCityPostalMatch:
               type: string
+              example: No
             shippingForward:
               type: string
+              example: 
         ipInformation:
           type: object
           properties:
             ip:
               type: string
+              example: 132.248.0.1
             anonymousDetected:
               type: 'null'
+              example: null
             autonomousSystemNumber:
               type: 'null'
+              example: null
             city:
               type: string
+              example: fairbanks
             corporateProxy:
               type: 'null'
+              example: null
             country:
               type: string
+              example: CO
             countryMatch:
               type: 'null'
+              example: null
             domain:
               type: 'null'
+              example: null
             isp:
               type: 'null'
+              example: null
             region:
               type: string
+              example: latinamerica
             latitude:
               type: string
+              example: 64.8363
             longitude:
               type: string
+              example: -147.715
             netSpeed:
               type: 'null'
+              example:  null
             organization:
               type: 'null'
+              example: null
             reputation:
               type: 'null'
+              example: null
             userType:
               type: 'null'
+              example: null
         digitalIdentityScoreInformation:
           type: object
           properties:
             description:
               type: string
+              example: High Confidence
             overallScore:
               type: integer
+              example: 87
             billAddressToFullNameConfidence:
               type: integer
+              example: 66
             billAddressToLastNameConfidence:
               type: integer
+              example: 55
             emailToIpConfidence:
               type: integer
+              example: 80
             emailToBillAddressConfidence:
               type: integer
+              example: 78
             emailToFullNameConfidence:
               type: integer
+              example: 88
             emailToLastNameConfidence:
               type: integer
+              example: 89
             emailToPhoneConfidence:
               type: integer
+              example: 44
             emailToShipAddressConfidence:
               type: integer
+              example: 78
             ipToBillAddressConfidence:
               type: integer
+              example: 90
             ipToFullNameConfidence:
               type: integer
+              example: 45
             ipToLastNameConfidence:
               type: integer
+              example: 56
             ipToPhoneConfidence:
               type: integer
+              example: 71
             ipToShipAddressConfidence:
               type: integer
+              example: 100
             phoneToBillAddressConfidence:
               type: integer
+              example: 100
             phoneToFullNameConfidence:
               type: integer
+              example: 97
             phoneToLastNameConfidence:
               type: integer
+              example: 34
             phoneToShipAddressConfidence:
               type: integer
+              example: 87
             shipAddressToBillAddressConfidence:
               type: integer
+              example: 77
             shipAddressToFullNameConfidence:
               type: integer
+              example: 78
             shipAddressToLastNameConfidence:
               type: integer
+              example: 34
         ipRiskInformation:
           type: object
           properties:
             level:
               type: string
+              example: '3'
             levelMessage:
               type: string
+              example: Moderate
             reasonId:
               type: string
+              example: '311'
             reason:
               type: string
+              example: Moderate By Proxy Reputation And Country Code
             riskCountry:
               type: string
+              example: ''
         ipLocationInformation:
           type: object
           properties:
             callingCode:
               type: string
+              example: '907'
             city:
               type: string
+              example: fairbanks
             cityConfidence:
               type: string
+              example: '95'
             continentCode:
               type: string
+              example: na
             country:
               type: string
+              example: Colombia
             countryCode:
               type: string
+              example: CO
             countryConfidence:
               type: string
+              example: '99'
             distanceMil:
               type: string
+              example: '5366'
             distanceKm:
               type: string
+              example: '8637'
             latitude:
               type: string
+              example: '64.8363'
             longitude:
               type: string
+              example: '-147.715'
             map:
               type: string
+              example: https://app.emailage.com/query/GoogleMaps?latLng=64.8363,-147.715
             metroCode:
               type: string
+              example: '745'
             region:
               type: string
+              example: latinamerica
             regionConfidence:
               type: string
+              example: '99'
             postalCode:
               type: string
+              example: '99701'
             postalConfidence:
               type: string
+              example: 50
             timeZone:
               type: string
+              example: -500
         emailOwnerInformation:
           type: 'null'
+          example: null
         phoneInformation:
           type: object
           properties:
             carrierName:
               type: string
+              example: Verizon Wireless
             carrierType:
               type: string
+              example: mobile
             inBillingLocation:
               type: string
+              example: Not Found
             owner:
               type: string
+              example: Test EA
             ownerMatch:
               type: string
+              example: Y 
             ownerType:
               type: string
+              example: CONSUMER
             status:
               type: string
+              example: VALID
         socialMediaInformation:
           type: object
           properties:
             smFriends:
               type: string
+              example: 53
             smLinks:
               type: array
               items:
@@ -2251,34 +2353,49 @@ components:
                 properties:
                   source:
                     type: string
+                    example: GoogleSearch
                   link:
                     type: string
+                    example: https://plus.google.com/115619223171371600000
         score:
           type: string
+          example: 0
         riskReason:
           type: string
+          example: 14
         riskReasonMessage:
           type: string
+          example: Email Created at least 9.9 Years Ago
         riskStatus:
           type: string
+          example: 2
         riskAdvice:
           type: string
+          example: 3
         riskAdviceMessage:
           type: string
+          example: Lower Fraud Risk
         riskBand:
           type: string
+          example: 1
         sourceIndustry:
           type: string
+          example:
         fraudType:
           type: string
+          example:
         lastFlaggedOn:
           type: string
+          example:
         returnCode:
           type: string
+          example: 0
         returnMessage:
           type: string
+          example:
         isExecuted:
           type: boolean
+          example: true
       x-examples:
         Example 1:
           emailInformation:
@@ -2494,160 +2611,226 @@ components:
       properties:
         score:
           type: string
+          example: '30'
         omniscore:
           type: string
+          example: '67'
         system:
           type: object
           properties:
             version:
               type: string
+              example: "0720"
             mode:
               type: string
+              example: Q
             merchantId:
               type: string
+              example: "201000"
             sessonId:
               type: string
+              example: "40"
             orderReference:
               type: string
+              example: 7e53ebb0-ae84-4f4d-9d98-36c3d74a0136
         decision:
           type: object
           properties:
             code:
               type: string
+              example: A
             description:
               type: string
+              example: APPROVE
             shouldApprove:
               type: boolean
+              example: true
             shouldDecline:
               type: boolean
+              example: false
             shouldReview:
               type: boolean
+              example: false
         verification:
           type: object
           properties:
             geolocationCountry:
               type: string
+              example: CO
             geolocationRegion:
               type: string
+              example: CO_02
             cardBrand:
               type: string
+              example: VISA
             cardIsBlacklisted:
               type: boolean
+              example: false
             aCatchVerificationHasBeenPerformed:
               type: boolean
+              example: false
             threeDsMerchantResponse:
               type: string
+              example: ''
             denialReasonCode:
               type: string
+              example: ''
         transaction:
           type: object
           properties:
             id:
               type: string
+              example: KNZ501674051
             usedCardsCount:
               type: integer
+              example: 1
             usedDevicesCount:
               type: integer
+              example: 1
             deviceLayers:
               type: string
+              example: DF651ACF30..99CF09F417.E3D16F2CB7.061826EF2B
             usedEmailsCount:
               type: integer
+              example: 1
             velocity:
               type: integer
+              example: 0
             maxAllowedVelocity:
               type: integer
+              example: 0
             site:
               type: string
+              example: DEFAULT
             fingerprint:
               type: string
+              example: 4C2410BA22A64E21BF0C73EA88E48D7E
             timezone:
               type: string
+              example: '300'
             localtime:
               type: string
+              example: '2017-05-31 00:19'
             region:
               type: string
+              example: CO_02
             country:
               type: string
+              example: CO
             httpCountry:
               type: string
+              example: US
             hasProxy:
               type: boolean
+              example: false
             hasJavascript:
               type: boolean
+              example: true
             hasFlash:
               type: boolean
+              example: false
             hasCookies:
               type: boolean
+              example: true
             language:
+              example: en
               type: string
               nullable: true
             processedFromMobileDevice:
               type: boolean
+              example: false
             mobileType:
               type: string
+              example: ''
             mobileIsThroughMobileForwarder:
               type: boolean
+              example: false
             processedFromVoiceDevice:
               type: boolean
+              example: false
             processedFromRemotePC:
               type: boolean
+              example: false
         ip:
           type: object
           properties:
             address:
               type: string
+              example: 181.128.85.221
             latitude:
               type: string
+              example: '6.2518'
             longitude:
               type: string
+              example: '-75.5636'
             country:
               type: string
+              example: CO
             state:
               type: string
+              example: Antioquia
             city:
               type: string
+              example: Medellin
             provider:
               type: string
+              example: UNE
         additional:
           type: object
           properties:
             dateSinceFirstMadeTransaction:
               type: string
+              example: ''
             screenResolution:
               type: string
+              example: 1050x1680
             userAgent:
               type: string
+              example:  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML like Gecko) Chrome/76.0.3809.100 Safari/537.36
             operativeSystem:
               type: string
+              example: Mac OS X 10.14.6
             browser:
               type: string
+              example: ''
             wasPreviouslyWhitelisted:
               type: boolean
+              example: false
         triggeredRules:
           type:
             - object
             - array
+          example :
+              - '693746 : GEOX Lower Risk Review Countries'
         triggeredCounters:
           type:
             - object
             - array
+          example :
+            - 'PAISESPARAREVISION : 1'
         warnings:
           type: array
           items:
             type: string
+          example:  
+            - 401 EXTRA_DATA in request. Please see RIS spec for valid fields and ensure RIS input is URL encoded.
         errorsBag:
           type: object
           properties:
             isErrorResponse:
               type: boolean
+              example: false
             code:
               nullable: true
+              example: null
             key:
               nullable: true
+              example: null
             errors:
               type: array
               items:
                 type: object
+              example: []
     Historical:
       title: Historical
       x-examples:
@@ -2667,26 +2850,36 @@ components:
       properties:
         risk:
           type: string
+          example: high
         score:
           type: string
+          example: '1000'
         reason:
           type: string
+          example: high
         email:
           type: string
+          example: test@test.com
         panHash:
           type: string
+          example: 9bbef19476623ca56c17da75fd57734dbf82530686043a6e491c6d71befe8f6e
         document:
           type: string
           nullable: true
+          example: CC 1040035000
         mobile:
           type: string
+          example: '3152807334'
         phone:
           type: string
-        ipAddress:
+          example: '2261751'
+        ipAddress: 
           type: string
+          example: '132.248.0.1'
         date:
           type: string
           nullable: true
+          example: null
     Transunion:
       type: object
       x-examples:
@@ -2727,39 +2920,55 @@ components:
       properties:
         document:
           type: string
+          example: '123456789'
         documentType:
           type: string
+          example: CC
         fullName:
           type: string
+          example: Foo
         documentStatus:
           type: integer
+          example: 1
         documentStatusText:
           type: string
+          example: Vigente
         ageRange:
           type: string
+          example: ''
         sheetCode:
           type: integer
+          example: 05521509999999999999
         sheetDateTime:
           type: string
+          example: '2021-02-25T08:50:16-05:00'
         returnCode:
           type: integer
+          example: 1
         returnText:
           type: string
+          example: Consulta exitosa
         score:
           type: string
+          example: '995'
         match:
           type: boolean
+          example: false
         errorMessage:
           nullable: true
+          example: null
         failed:
           type: boolean
+          example: false
         isExecuted:
+          example: true
           type: boolean
     BehavioralNetwork:
       type: object
       properties:
         fraudScore:
           type: number
+          example: 0.99
         fraudConcept:
           type: array
           items:
@@ -2767,10 +2976,13 @@ components:
             properties:
               code:
                 type: string
+                example: F22
               description:
                 type: string
+                example: Empresas fachada - Frecuencia inusual de país emisor tarjeta en comercio'
         legalScore:
           type: number
+          example: 0.01
         legalConcept:
           type: array
           items:
@@ -2778,12 +2990,16 @@ components:
             properties:
               code:
                 type: string
+                example: L11
               description:
                 type: string
+                example: Calidad de datos de sección de comercio
         reliable:
           type: boolean
+          example: true
         errorMessage:
           type: 'null'
+          example: null
       x-examples:
         example-1:
           fraudScore: 0.99
