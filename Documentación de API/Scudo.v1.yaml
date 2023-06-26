@@ -676,7 +676,10 @@ paths:
                                 postalCode: '99701'
                                 postalConfidence: '50'
                                 timeZone: '-500'
-                              emailOwnerInformation: null
+                              emailOwnerInformation:
+                                eName: Test EA
+                                location: ''
+                                title: ''
                               phoneInformation:
                                 carrierName: Verizon Wireless
                                 carrierType: mobile
@@ -2021,13 +2024,13 @@ components:
               example: test@test.com
             age:
               type: string
-              example: 
+              example: ''
             country:
               type: string
               example: US
             company:
               type: string
-              example: 
+              example: ''
             exists:
               type: string
               example: Yes
@@ -2045,7 +2048,7 @@ components:
               example: "2020-06-12T03:37:56Z"
             imageUrl:
               type: string
-              example: 
+              example: ''
             hits:
               type: string
               example: 2
@@ -2054,7 +2057,7 @@ components:
               example: 1
             creationDays:
               type: string
-              example: 
+              example: '9069'
             domain:
               type: object
               properties:
@@ -2096,7 +2099,7 @@ components:
                   example: Valid Webmail Domain from United States
                 creationDays:
                   type: string
-                  example: 9069
+                  example: '9069'
                 fraudRisk:
                   type: string
                   example: 071 Very Low
@@ -2117,7 +2120,7 @@ components:
               example: No
             shippingForward:
               type: string
-              example: 
+              example: ''
         ipInformation:
           type: object
           properties:
@@ -2125,32 +2128,32 @@ components:
               type: string
               example: 132.248.0.1
             anonymousDetected:
-              type: 'null'
-              example: null
+              type: string
+              example: No
             autonomousSystemNumber:
-              type: 'null'
-              example: null
+              type: string
+              example: 32328 alascom inc.
             city:
               type: string
               example: fairbanks
             corporateProxy:
-              type: 'null'
-              example: null
+              type: string
+              example: Yes
             country:
               type: string
-              example: CO
+              example: US
             countryMatch:
-              type: 'null'
-              example: null
+              type: string
+              example: Yes
             domain:
-              type: 'null'
-              example: null
+              type: string
+              example: att.com
             isp:
-              type: 'null'
-              example: null
+              type: string
+              example: att services inc.
             region:
               type: string
-              example: latinamerica
+              example: alaska
             latitude:
               type: string
               example: 64.8363
@@ -2158,17 +2161,17 @@ components:
               type: string
               example: -147.715
             netSpeed:
-              type: 'null'
-              example:  null
+              type: string
+              example:  broadband
             organization:
-              type: 'null'
-              example: null
+              type: string
+              example: alascom inc.
             reputation:
-              type: 'null'
-              example: null
+              type: string
+              example: 'Good'
             userType:
-              type: 'null'
-              example: null
+              type: string
+              example: wifi
         digitalIdentityScoreInformation:
           type: object
           properties:
@@ -2314,8 +2317,17 @@ components:
               type: string
               example: -500
         emailOwnerInformation:
-          type: 'null'
-          example: null
+          type: object
+          properties:
+            eName:
+              type: string
+              example: Test EA
+            location:
+              type: string
+              example: ''
+            title:
+              type: string
+              example: ''
         phoneInformation:
           type: object
           properties:
@@ -2435,21 +2447,21 @@ components:
             shippingForward: ''
           ipInformation:
             ip: 132.248.0.1
-            anonymousDetected: null
-            autonomousSystemNumber: null
+            anonymousDetected: 'No'
+            autonomousSystemNumber: '32328 alascom inc.'
             city: fairbanks
-            corporateProxy: null
-            country: CO
-            countryMatch: null
-            domain: null
-            isp: null
-            region: latinamerica
+            corporateProxy: 'Yes'
+            country: US
+            countryMatch: 'Yes'
+            domain: 'att.com'
+            isp: 'att services inc.'
+            region: alaska
             latitude: '64.8363'
             longitude: '-147.715'
-            netSpeed: null
-            organization: null
-            reputation: null
-            userType: null
+            netSpeed: 'broadband'
+            organization: 'alascom inc.'
+            reputation: 'Good'
+            userType: 'wifi'
           digitalIdentityScoreInformation:
             description: High Confidence
             overallScore: 87
@@ -2498,7 +2510,10 @@ components:
             postalCode: '99701'
             postalConfidence: '50'
             timeZone: '-500'
-          emailOwnerInformation: null
+          emailOwnerInformation:
+            eName: Test EA
+            location: ''
+            title: ''
           phoneInformation:
             carrierName: Verizon Wireless
             carrierType: mobile
