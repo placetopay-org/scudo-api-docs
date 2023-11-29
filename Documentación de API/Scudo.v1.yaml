@@ -1373,7 +1373,7 @@ paths:
           required: true
   /api/v1/validations/search:
     parameters: []
-    get:
+    post:
       summary: Busqueda de Validaciones
       tags: []
       responses:
@@ -1388,161 +1388,168 @@ paths:
                     $ref: '#/components/schemas/Status'
                   data:
                     type: object
-                    description: Objeto que agrupa los resultados de la validación
+                    description: Objeto que agrupa los resultados de la consulta
                     nullable: true
-                    properties:
-                      created_at:
-                        type: string
-                        description: Fecha de creación de la validación
-                      notified_at:
-                        type: string
-                        description: Fecha de notificacion de la validación
-                        nullable: true
-                      notified_status:
-                        type: string
-                        enum:
-                          - approved
-                          - canceled
-                          - chargeback
-                          - pending
-                          - refunded
-                          - rejected
-                        description: Estado final de la transacción
-                      id:
-                        type: string
-                        description: Identificador de la validación
-                      resolved:
-                        type: object
-                        description: Objeto que agrupa campos de una validacion de scudo con validacion manual
-                        nullable: true
-                        properties:
-                          resolved_at:
-                            type: string
-                            description: Fecha de resolución de la validación manual
-                          action:
-                            type: string
-                            description: Acción de resolución de la validación manual
-                          reason:
-                            type: string
-                            description: Razón de resolución de la validación manual
-                            nullable: true
-                          comments:
-                            type: string
-                            description: Comentarios de resolución de la validación manual
-                            nullable: true
-                      transaction:
-                        type: object
-                        description: Objeto que agrupa la información de la transacción del cliente
-                        properties:
-                          reference:
-                            type: string
-                            description: Referencia de la transacción del cliente
-                      action:
-                        type: object
-                        description: Objeto que agrupa la acción recomendada
-                        properties:
-                          name:
-                            type: string
-                            description: Acción recomendada de la validación
-                            enum:
-                              - reject_transaction
-                              - manual_transaction
-                              - process_transaction
-                          performed_by:
-                            type: string
-                            description: Nombre de la regla que define la acción recomendada
-                          performed_by_code:
-                            type: string
-                            enum:
-                              - emailage
-                              - kount
-                              - historical
-                              - transunion
-                              - allowed_countries_for_issuer_bank
-                              - exclude_country_match_for_issuers
-                              - allowed_countries_for_buyers
-                              - amount_by_client
-                              - number_of_transactions_by_client
-                              - number_of_cards_by_client
-                              - match_country_ip_and_issuer_bank
-                              - custom
-                              - amount_by_transaction
-                            description: Código de la regla que define la acción recomendada
-                      rules:
+                    properties: 
+                      validations:
                         type: array
-                        description: Reglas ejecutadas en la validación
                         items:
                           type: object
-                          description: Objeto que agrupa la ejecución de una regla
                           properties:
+                            created_at:
+                              type: string
+                              description: Fecha de creación de la validación
+                            notified_at:
+                              type: string
+                              description: Fecha de notificacion de la validación
+                              nullable: true
+                            notified_status:
+                              type: string
+                              enum:
+                                - approved
+                                - canceled
+                                - chargeback
+                                - pending
+                                - refunded
+                                - rejected
+                              description: Estado final de la transacción
+                            id:
+                              type: string
+                              description: Identificador de la validación
+                            resolved:
+                              type: object
+                              description: Objeto que agrupa campos de una validacion de scudo con validacion manual
+                              nullable: true
+                              properties:
+                                resolved_at:
+                                  type: string
+                                  description: Fecha de resolución de la validación manual
+                                action:
+                                  type: string
+                                  description: Acción de resolución de la validación manual
+                                reason:
+                                  type: string
+                                  description: Razón de resolución de la validación manual
+                                  nullable: true
+                                comments:
+                                  type: string
+                                  description: Comentarios de resolución de la validación manual
+                                  nullable: true
+                            transaction:
+                              type: object
+                              description: Objeto que agrupa la información de la transacción del cliente
+                              properties:
+                                reference:
+                                  type: string
+                                  description: Referencia de la transacción del cliente
                             action:
-                              type: string
-                              enum:
-                                - continue_with_next_rule
-                                - reject_transaction
-                                - manual_transaction
-                                - process_transaction
-                                - continue_with_specific_rule
-                                - continue_with_specific_ruleset
-                              description: Acción de la regla
-                            name:
-                              type: string
-                              description: Nombre de la regla
-                            rule_code:
-                              type: string
-                              enum:
-                                - emailage
-                                - kount
-                                - historical
-                                - transunion
-                                - allowed_countries_for_issuer_bank
-                                - exclude_country_match_for_issuers
-                                - allowed_countries_for_buyers
-                                - amount_by_client
-                                - number_of_transactions_by_client
-                                - number_of_cards_by_client
-                                - match_country_ip_and_issuer_bank
-                                - custom
-                                - amount_by_transaction
-                                - CLIENT_IDENTIFIER
-                                - IP_ADDRESS
-                                - CREDIT_CARD
-                                - EMAIL
-                                - BIN
-                              description: Código de la regla
-                            type:
-                              type: string
-                              enum:
-                                - filter
-                                - score
-                              description: Tipo de la regla
-                            response:
-                              anyOf:
-                                - $ref: '#/components/schemas/Score'
-                                - $ref: '#/components/schemas/Filter'
-                                - type: object
-                                  properties:
-                                    failed:
-                                      type: boolean
-                                    message:
-                                      type: string
-                                    received:
-                                      type: object
-                                      properties:
-                                        amount:
-                                          type: number
-                                        currency:
-                                          type: object
-                                    configured:
-                                      type: object
-                                      properties:
-                                        value:
-                                          type: string
-                                        currency:
-                                          type: string
-                                        operator:
-                                          type: string
-                              description: Objeto que agrupa el resultado de la regla ejecutada
+                              type: object
+                              description: Objeto que agrupa la acción recomendada
+                              properties:
+                                name:
+                                  type: string
+                                  description: Acción recomendada de la validación
+                                  enum:
+                                    - reject_transaction
+                                    - manual_transaction
+                                    - process_transaction
+                                performed_by:
+                                  type: string
+                                  description: Nombre de la regla que define la acción recomendada
+                                performed_by_code:
+                                  type: string
+                                  enum:
+                                    - emailage
+                                    - kount
+                                    - historical
+                                    - transunion
+                                    - allowed_countries_for_issuer_bank
+                                    - exclude_country_match_for_issuers
+                                    - allowed_countries_for_buyers
+                                    - amount_by_client
+                                    - number_of_transactions_by_client
+                                    - number_of_cards_by_client
+                                    - match_country_ip_and_issuer_bank
+                                    - custom
+                                    - amount_by_transaction
+                                  description: Código de la regla que define la acción recomendada
+                            rules:
+                              type: array
+                              description: Reglas ejecutadas en la validación
+                              items:
+                                type: object
+                                description: Objeto que agrupa la ejecución de una regla
+                                properties:
+                                  action:
+                                    type: string
+                                    enum:
+                                      - continue_with_next_rule
+                                      - reject_transaction
+                                      - manual_transaction
+                                      - process_transaction
+                                      - continue_with_specific_rule
+                                      - continue_with_specific_ruleset
+                                    description: Acción de la regla
+                                  name:
+                                    type: string
+                                    description: Nombre de la regla
+                                  rule_code:
+                                    type: string
+                                    enum:
+                                      - emailage
+                                      - kount
+                                      - historical
+                                      - transunion
+                                      - allowed_countries_for_issuer_bank
+                                      - exclude_country_match_for_issuers
+                                      - allowed_countries_for_buyers
+                                      - amount_by_client
+                                      - number_of_transactions_by_client
+                                      - number_of_cards_by_client
+                                      - match_country_ip_and_issuer_bank
+                                      - custom
+                                      - amount_by_transaction
+                                      - CLIENT_IDENTIFIER
+                                      - IP_ADDRESS
+                                      - CREDIT_CARD
+                                      - EMAIL
+                                      - BIN
+                                    description: Código de la regla
+                                  type:
+                                    type: string
+                                    enum:
+                                      - filter
+                                      - score
+                                    description: Tipo de la regla
+                                  response:
+                                    anyOf:
+                                      - $ref: '#/components/schemas/Score'
+                                      - $ref: '#/components/schemas/Filter'
+                                      - type: object
+                                        properties:
+                                          failed:
+                                            type: boolean
+                                          message:
+                                            type: string
+                                          received:
+                                            type: object
+                                            properties:
+                                              amount:
+                                                type: number
+                                              currency:
+                                                type: object
+                                          configured:
+                                            type: object
+                                            properties:
+                                              value:
+                                                type: string
+                                              currency:
+                                                type: string
+                                              operator:
+                                                type: string
+                                    description: Objeto que agrupa el resultado de la regla ejecutada
+
+                      
               examples:
                 successful:
                   value:
@@ -1551,189 +1558,234 @@ paths:
                       name: successful
                       message: Validation was successfully queried
                     data:
-                      created_at: '2022-04-18T20:23:58.000000Z'
-                      notified_at: null
-                      notified_status: pending
-                      resolved:
-                        resolved_at: '2022-04-18 21:15:21'
-                        action: reject_transaction
-                        reason: Possible fraud
-                        comments: Posible fraude reportado por el cliente
-                      id: ec058900-5f26-42e5-8abd-b0681e4a3253
-                      transaction:
-                        reference: 0cf06ad7-ff26-4a09-b40e-1375bbf31771
-                      action:
-                        name: manual_transaction
-                        performed_by: Force match IP country and issuing bank
-                        performed_by_code: match_country_ip_and_issuer_bank
-                      rules:
-                        - action: continue_with_next_rule
-                          name: Number of cards
-                          rule_code: number_of_cards_by_client
-                          type: filter
-                          response:
-                            match: true
-                            failed: false
-                        - action: continue_with_next_rule
-                          name: Historical transactions
-                          rule_code: historical
-                          type: score
-                          response:
-                            match: false
-                            score: '370'
-                            failed: false
-                            service_response:
-                              date: null
-                              risk: medium
-                              email: test@test.com
-                              phone: '2261751'
-                              score: '370'
-                              mobile: '3152807334'
-                              reason: medium
-                              panHash: c393bb89bcb92c7d95d405f26699b33f4956c92f607fbe8c2facb836c762382b
-                              document: CC 1040035000
-                              ipAddress: 132.248.0.1
-                        - action: continue_with_next_rule
-                          name: Amount by client
-                          rule_code: amount_by_client
-                          type: filter
-                          response:
-                            match: false
-                            failed: false
-                        - action: continue_with_next_rule
-                          name: Exclude country match for issuers
-                          rule_code: exclude_country_match_for_issuers
-                          type: filter
-                          response:
-                            match: null
-                            failed: true
-                        - action: continue_with_next_rule
-                          name: Allowed countries for buyers
-                          rule_code: allowed_countries_for_buyers
-                          type: filter
-                          response:
-                            match: false
-                            failed: false
-                        - action: continue_with_next_rule
-                          name: Emailage
-                          rule_code: emailage
-                          type: score
-                          response:
-                            match: false
-                            score: '0'
-                            failed: false
-                            service_response:
-                              score: '0'
-                              riskBand: '1'
-                              fraudType: ''
-                              isExecuted: true
-                              returnCode: '0'
-                              riskAdvice: '3'
-                              riskReason: '14'
-                              riskStatus: '2'
-                              ipInformation: null
-                              lastFlaggedOn: ''
-                              returnMessage: ''
-                              sourceIndustry: ''
-                              emailInformation:
-                                age: ''
-                                hits: null
-                                email: test@test.com
-                                domain:
-                                  age: '1995-08-13T04:00:00Z'
-                                  name: gmail.com
-                                  exists: 'Yes'
-                                  company: Google
-                                  category: Webmail
-                                  corporate: 'No'
-                                  riskLevel: '3'
-                                  countryName: United States
-                                  relevantInfo: '508'
-                                  riskLevelMessage: Moderate
-                                  relevantInfoMessage: Valid Webmail Domain from United States
-                                exists: 'Yes'
-                                status: Verified
-                                country: US
-                                imageUrl: ''
-                                lastSeen: '2020-06-12T03:37:56Z'
-                                firstSeen: '2010-07-17T07:00:00Z'
-                                uniqueHits: '1'
-                              riskAdviceMessage: Lower Fraud Risk
-                              riskReasonMessage: Email Created at least 9.9 Years Ago
-                        - action: continue_with_next_rule
-                          name: Transunion
-                          rule_code: transunion
-                          type: score
-                          response:
-                            match: false
-                            score: '995'
-                            failed: false
-                            service_response:
-                              match: false
-                              score: '995'
-                              failed: false
-                              ageRange: ''
-                              document: '123456789'
-                              fullName: Foo
-                              sheetCode: '05521509999999999999'
-                              isExecuted: true
-                              returnCode: 1
-                              returnText: Consulta exitosa
-                              documentType: CC
-                              errorMessage: null
-                              sheetDateTime: '2021-02-25T08:50:16-05:00'
-                              documentStatus: 1
-                              documentStatusText: Vigente
-                        - action: continue_with_next_rule
-                          name: Number of transactions
-                          rule_code: number_of_transactions_by_client
-                          type: filter
-                          response:
-                            match: false
-                            failed: false
-                        - action: continue_with_next_rule
-                          name: Kount
-                          rule_code: kount
-                          type: score
-                          response:
-                            match: false
-                            score: '10'
-                            failed: false
-                            service_response:
-                              score: '10'
-                              errors: []
-                              ipCity: Boise
-                              ipState: Idaho
-                              decision: A
-                              language: en
-                              ipAddress: 208.75.113.3
-                              ipCountry: US
-                              userAgent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML like Gecko) Chrome/76.0.3809.100 Safari/537.36
-                              ipLatitude: '43.6337'
-                              ipProvider: PENDING
-                              isExecuted: true
-                              fingerprint: 290D1C0172364AADAC25D9FD0B13D946
-                              ipLongitude: '-116.2004'
-                              deviceLayers: DF651ACF30..99CF09F417.E3D16F2CB7.061826EF2B
-                              errorMessage: null
-                              quantityErrors: 0
-                              operativeSystem: Mac OS X 10.14.6
-                              screenResolution: 1050x1680
-                              decisionDescription: APPROVE
-                        - action: continue_with_next_rule
-                          name: Allowed Issuer Bank Countries
-                          rule_code: allowed_countries_for_issuer_bank
-                          type: filter
-                          response:
-                            match: null
-                            failed: true
-                        - action: continue_with_next_rule
-                          name: Force match IP country and issuing bank
-                          rule_code: match_country_ip_and_issuer_bank
-                          type: filter
-                          response:
-                            match: null
-                            failed: true
+                      validations:
+                        - created_at: '2022-04-18T20:23:58.000000Z'
+                          notified_at: null
+                          notified_status: pending
+                          resolved:
+                            resolved_at: '2022-04-18 21:15:21'
+                            action: reject_transaction
+                            reason: Possible fraud
+                            comments: Posible fraude reportado por el cliente
+                          id: ec058900-5f26-42e5-8abd-b0681e4a3253
+                          transaction:
+                            reference: 0cf06ad7-ff26-4a09-b40e-1375bbf31771
+                          action:
+                            name: manual_transaction
+                            performed_by: Force match IP country and issuing bank
+                            performed_by_code: match_country_ip_and_issuer_bank
+                          rules:
+                            - action: continue_with_next_rule
+                              name: Number of cards
+                              rule_code: number_of_cards_by_client
+                              type: filter
+                              response:
+                                match: true
+                                failed: false
+                            - action: continue_with_next_rule
+                              name: Historical transactions
+                              rule_code: historical
+                              type: score
+                              response:
+                                match: false
+                                score: '370'
+                                failed: false
+                                service_response:
+                                  date: null
+                                  risk: medium
+                                  email: test@test.com
+                                  phone: '2261751'
+                                  score: '370'
+                                  mobile: '3152807334'
+                                  reason: medium
+                                  panHash: c393bb89bcb92c7d95d405f26699b33f4956c92f607fbe8c2facb836c762382b
+                                  document: CC 1040035000
+                                  ipAddress: 132.248.0.1
+                            - action: continue_with_next_rule
+                              name: Amount by client
+                              rule_code: amount_by_client
+                              type: filter
+                              response:
+                                match: false
+                                failed: false
+                            - action: continue_with_next_rule
+                              name: Exclude country match for issuers
+                              rule_code: exclude_country_match_for_issuers
+                              type: filter
+                              response:
+                                match: null
+                                failed: true
+                            - action: continue_with_next_rule
+                              name: Allowed countries for buyers
+                              rule_code: allowed_countries_for_buyers
+                              type: filter
+                              response:
+                                match: false
+                                failed: false
+                            - action: continue_with_next_rule
+                              name: Emailage
+                              rule_code: emailage
+                              type: score
+                              response:
+                                match: false
+                                score: '0'
+                                failed: false
+                                service_response:
+                                  score: '0'
+                                  riskBand: '1'
+                                  fraudType: ''
+                                  isExecuted: true
+                                  returnCode: '0'
+                                  riskAdvice: '3'
+                                  riskReason: '14'
+                                  riskStatus: '2'
+                                  ipInformation: null
+                                  lastFlaggedOn: ''
+                                  returnMessage: ''
+                                  sourceIndustry: ''
+                                  emailInformation:
+                                    age: ''
+                                    hits: null
+                                    email: test@test.com
+                                    domain:
+                                      age: '1995-08-13T04:00:00Z'
+                                      name: gmail.com
+                                      exists: 'Yes'
+                                      company: Google
+                                      category: Webmail
+                                      corporate: 'No'
+                                      riskLevel: '3'
+                                      countryName: United States
+                                      relevantInfo: '508'
+                                      riskLevelMessage: Moderate
+                                      relevantInfoMessage: Valid Webmail Domain from United States
+                                    exists: 'Yes'
+                                    status: Verified
+                                    country: US
+                                    imageUrl: ''
+                                    lastSeen: '2020-06-12T03:37:56Z'
+                                    firstSeen: '2010-07-17T07:00:00Z'
+                                    uniqueHits: '1'
+                                  riskAdviceMessage: Lower Fraud Risk
+                                  riskReasonMessage: Email Created at least 9.9 Years Ago
+                            - action: continue_with_next_rule
+                              name: Transunion
+                              rule_code: transunion
+                              type: score
+                              response:
+                                match: false
+                                score: '995'
+                                failed: false
+                                service_response:
+                                  match: false
+                                  score: '995'
+                                  failed: false
+                                  ageRange: ''
+                                  document: '123456789'
+                                  fullName: Foo
+                                  sheetCode: '05521509999999999999'
+                                  isExecuted: true
+                                  returnCode: 1
+                                  returnText: Consulta exitosa
+                                  documentType: CC
+                                  errorMessage: null
+                                  sheetDateTime: '2021-02-25T08:50:16-05:00'
+                                  documentStatus: 1
+                                  documentStatusText: Vigente
+                            - action: continue_with_next_rule
+                              name: Number of transactions
+                              rule_code: number_of_transactions_by_client
+                              type: filter
+                              response:
+                                match: false
+                                failed: false
+                            - action: continue_with_next_rule
+                              name: Kount
+                              rule_code: kount
+                              type: score
+                              response:
+                                match: false
+                                score: '10'
+                                failed: false
+                                service_response:
+                                  score: '10'
+                                  errors: []
+                                  ipCity: Boise
+                                  ipState: Idaho
+                                  decision: A
+                                  language: en
+                                  ipAddress: 208.75.113.3
+                                  ipCountry: US
+                                  userAgent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML like Gecko) Chrome/76.0.3809.100 Safari/537.36
+                                  ipLatitude: '43.6337'
+                                  ipProvider: PENDING
+                                  isExecuted: true
+                                  fingerprint: 290D1C0172364AADAC25D9FD0B13D946
+                                  ipLongitude: '-116.2004'
+                                  deviceLayers: DF651ACF30..99CF09F417.E3D16F2CB7.061826EF2B
+                                  errorMessage: null
+                                  quantityErrors: 0
+                                  operativeSystem: Mac OS X 10.14.6
+                                  screenResolution: 1050x1680
+                                  decisionDescription: APPROVE
+                            - action: continue_with_next_rule
+                              name: Allowed Issuer Bank Countries
+                              rule_code: allowed_countries_for_issuer_bank
+                              type: filter
+                              response:
+                                match: null
+                                failed: true
+                            - action: continue_with_next_rule
+                              name: Force match IP country and issuing bank
+                              rule_code: match_country_ip_and_issuer_bank
+                              type: filter
+                              response:
+                                match: null
+                                failed: true
+                        - created_at: '2023-04-18T20:23:58.000000Z'
+                          notified_at: null
+                          notified_status: pending
+                          resolved:
+                            resolved_at: '2022-04-18 21:15:21'
+                            action: reject_transaction
+                            reason: Possible fraud
+                            comments: Posible fraude reportado por el cliente
+                          id: 32058900-5f26-42e5-8abd-b0681e4a3253
+                          transaction:
+                            reference: 0cf06ad7-ff26-4a09-b40e-1375bbf31771
+                          action:
+                            name: manual_transaction
+                            performed_by: Force match IP country and issuing bank
+                            performed_by_code: match_country_ip_and_issuer_bank
+                          rules:
+                            - action: continue_with_next_rule
+                              name: Number of cards
+                              rule_code: number_of_cards_by_client
+                              type: filter
+                              response:
+                                match: true
+                                failed: false
+                            - action: continue_with_next_rule
+                              name: Number of transactions
+                              rule_code: number_of_transactions_by_client
+                              type: filter
+                              response:
+                                match: false
+                                failed: false
+                            - action: continue_with_next_rule
+                              name: Allowed Issuer Bank Countries
+                              rule_code: allowed_countries_for_issuer_bank
+                              type: filter
+                              response:
+                                match: null
+                                failed: true
+                            - action: continue_with_next_rule
+                              name: Force match IP country and issuing bank
+                              rule_code: match_country_ip_and_issuer_bank
+                              type: filter
+                              response:
+                                match: null
+                                failed: true
         '404':
           description: Not Found
           content:
@@ -1751,7 +1803,7 @@ paths:
                     status:
                       code: 1350
                       name: not_found
-                      message: Model validation with id 4175ebd7-2dbb-47c2-bf49-255e43c32c1cs not found
+                      message: not_found
                     data: null
       operationId: search-validations
       description: 'Este servicio permite la búsqueda de transacciones por referencia, moneda y monto, suele utilizarse en caso de pérdida de comunicación al crear una validacion.'
@@ -1764,6 +1816,18 @@ paths:
           required: true
       x-stoplight:
         id: yqc5l72eteisa
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Payment'
+            examples:
+              Ejemplo exitoso:
+                value:
+                  reference: example-reference
+                  amount:
+                    currency: USD
+                    total: 3512
   /notify-resolved-validation:
     post:
       summary: '[Webhook] Notificación de transacción resuelta'
