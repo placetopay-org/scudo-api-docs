@@ -17,6 +17,7 @@ Código | Significado | Descripción
 1301 | id_missmatch | El código que especifica la identificación de scudo no coincide con la identificación de transacción o la identificación de referencia.
 1310 | rules_not_found | reglas no encontradas, verifique la configuración del sitio.
 1320 | wrong_configured_rules | La configuración de las reglas está erronea generando ciclos infinitos
+1350 | failed | ha ocurrido un error en la petición solicitada
 1402 | wrong_authentication_format | Los encabezados de error ven los encabezados disponibles en el punto final.
 1403 | bad_credentials | Error de encabezados de autenticación, verifique sus credenciales.
 
