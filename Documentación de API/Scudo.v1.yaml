@@ -1390,7 +1390,7 @@ paths:
                     type: object
                     description: Objeto que agrupa los resultados de la consulta
                     nullable: true
-                    properties: 
+                    properties:
                       validations:
                         type: array
                         items:
@@ -1548,8 +1548,6 @@ paths:
                                               operator:
                                                 type: string
                                     description: Objeto que agrupa el resultado de la regla ejecutada
-
-                      
               examples:
                 successful:
                   value:
@@ -1804,6 +1802,27 @@ paths:
                       code: 1350
                       name: not_found
                       message: not_found
+                    data: null
+        '422':
+          description: Unprocessable Entity (WebDAV)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    $ref: '#/components/schemas/Status'
+                  data:
+                    x-stoplight:
+                      id: c5g94lfyqfhf4
+                    nullable: true
+              examples:
+                Failed reference:
+                  value:
+                    status:
+                      code: 1202
+                      name: wrong_field_format
+                      message: 'Invalid elements: [reference] (see endpoint documentation)'
                     data: null
       operationId: search-validations
       description: 'Este servicio permite la búsqueda de transacciones por referencia, moneda y monto, suele utilizarse en caso de pérdida de comunicación al crear una validacion.'
