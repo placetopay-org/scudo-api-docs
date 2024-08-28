@@ -305,6 +305,7 @@ paths:
                               - exclude_country_match_for_issuers
                               - allowed_countries_for_buyers
                               - amount_by_client
+                              - number_of_emails_by_ip
                               - number_of_transactions_by_client
                               - number_of_cards_by_client
                               - match_country_ip_and_issuer_bank
@@ -348,6 +349,7 @@ paths:
                                 - exclude_country_match_for_issuers
                                 - allowed_countries_for_buyers
                                 - amount_by_client
+                                - number_of_emails_by_ip
                                 - number_of_transactions_by_client
                                 - number_of_cards_by_client
                                 - match_country_ip_and_issuer_bank
@@ -516,6 +518,13 @@ paths:
                         - action: continue_with_next_rule
                           name: Monto por cliente
                           rule_code: amount_by_client
+                          type: filter
+                          response:
+                            match: false
+                            failed: false
+                        - action: continue_with_next_rule
+                          name: Numero de correos electrónicos por Ip
+                          rule_code: number_of_emails_by_ip
                           type: filter
                           response:
                             match: false
@@ -1071,6 +1080,7 @@ paths:
                               - exclude_country_match_for_issuers
                               - allowed_countries_for_buyers
                               - amount_by_client
+                              - number_of_emails_by_ip
                               - number_of_transactions_by_client
                               - number_of_cards_by_client
                               - match_country_ip_and_issuer_bank
@@ -1108,6 +1118,7 @@ paths:
                                 - exclude_country_match_for_issuers
                                 - allowed_countries_for_buyers
                                 - amount_by_client
+                                - number_of_emails_by_ip
                                 - number_of_transactions_by_client
                                 - number_of_cards_by_client
                                 - match_country_ip_and_issuer_bank
@@ -1205,6 +1216,13 @@ paths:
                         - action: continue_with_next_rule
                           name: Amount by client
                           rule_code: amount_by_client
+                          type: filter
+                          response:
+                            match: false
+                            failed: false
+                        - action: continue_with_next_rule
+                          name: Número de correos electrónicos por Ip
+                          rule_code: number_of_emails_by_ip
                           type: filter
                           response:
                             match: false
@@ -1467,6 +1485,7 @@ paths:
                                     - exclude_country_match_for_issuers
                                     - allowed_countries_for_buyers
                                     - amount_by_client
+                                    - number_of_emails_by_ip
                                     - number_of_transactions_by_client
                                     - number_of_cards_by_client
                                     - match_country_ip_and_issuer_bank
@@ -1504,6 +1523,7 @@ paths:
                                       - exclude_country_match_for_issuers
                                       - allowed_countries_for_buyers
                                       - amount_by_client
+                                      - number_of_emails_by_ip
                                       - number_of_transactions_by_client
                                       - number_of_cards_by_client
                                       - match_country_ip_and_issuer_bank
@@ -1602,6 +1622,13 @@ paths:
                             - action: continue_with_next_rule
                               name: Amount by client
                               rule_code: amount_by_client
+                              type: filter
+                              response:
+                                match: false
+                                failed: false
+                            - action: continue_with_next_rule
+                              name: Número de correos electrónicos por Ip
+                              rule_code: number_of_emails_by_ip
                               type: filter
                               response:
                                 match: false
@@ -2059,6 +2086,7 @@ paths:
                               - exclude_country_match_for_issuers
                               - allowed_countries_for_buyers
                               - amount_by_client
+                              - number_of_emails_by_ip
                               - number_of_transactions_by_client
                               - number_of_cards_by_client
                               - match_country_ip_and_issuer_bank
@@ -2133,6 +2161,13 @@ paths:
                       - action: continue_with_next_rule
                         name: Amount by client
                         rule_code: amount_by_client
+                        type: filter
+                        response:
+                          match: false
+                          failed: false
+                      - action: continue_with_next_rule
+                        name: Número de correos electrónicos por Ip
+                        rule_code: number_of_emails_by_ip
                         type: filter
                         response:
                           match: false
