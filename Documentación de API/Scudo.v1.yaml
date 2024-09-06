@@ -263,6 +263,10 @@ paths:
                     type: object
                     description: Objeto que agrupa los resultados de la validación
                     nullable: true
+                    required:
+                      - id
+                      - transaction
+                      - action
                     properties:
                       id:
                         type: string
@@ -316,6 +320,8 @@ paths:
                               - CREDIT_CARD
                               - EMAIL
                               - BIN
+                              - number_of_emails_by_card
+                              - number_of_transactions_by_card
                             description: Código de la regla que define la acción recomendada
                       rules:
                         type: array
@@ -323,6 +329,11 @@ paths:
                         items:
                           type: object
                           description: Objeto que agrupa la ejecución de una regla
+                          required:
+                            - name
+                            - rule_code
+                            - type
+                            - response
                           properties:
                             action:
                               type: string
@@ -360,6 +371,8 @@ paths:
                                 - CREDIT_CARD
                                 - EMAIL
                                 - BIN
+                                - number_of_emails_by_card
+                                - number_of_transactions_by_card
                               description: Código de la regla
                             type:
                               enum:
@@ -393,15 +406,6 @@ paths:
                                           type: string
                                     failed:
                                       type: boolean
-                          required:
-                            - name
-                            - rule_code
-                            - type
-                            - response
-                    required:
-                      - id
-                      - transaction
-                      - action
               examples:
                 ejemplo exitoso:
                   value:
@@ -1086,6 +1090,8 @@ paths:
                               - match_country_ip_and_issuer_bank
                               - custom
                               - amount_by_transaction
+                              - number_of_emails_by_card
+                              - number_of_transactions_by_card
                             description: Código de la regla que define la acción recomendada
                       rules:
                         type: array
@@ -1129,6 +1135,8 @@ paths:
                                 - CREDIT_CARD
                                 - EMAIL
                                 - BIN
+                                - number_of_emails_by_card
+                                - number_of_transactions_by_card
                               description: Código de la regla
                             type:
                               type: string
@@ -1491,6 +1499,8 @@ paths:
                                     - match_country_ip_and_issuer_bank
                                     - custom
                                     - amount_by_transaction
+                                    - number_of_emails_by_card
+                                    - number_of_transactions_by_card
                                   description: Código de la regla que define la acción recomendada
                             rules:
                               type: array
@@ -1534,6 +1544,8 @@ paths:
                                       - CREDIT_CARD
                                       - EMAIL
                                       - BIN
+                                      - number_of_emails_by_card
+                                      - number_of_transactions_by_card
                                     description: Código de la regla
                                   type:
                                     type: string

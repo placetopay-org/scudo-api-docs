@@ -48,19 +48,22 @@ Manual | c393bb89bcb92c7d95d405f26699b33f4956c92f607fbe8c2facb836c762382b | 4212
 
 Código de regla | tipo | 
 ---------|----------|
-emailage | puntaje | 
-kount | puntaje | 
-historical | puntaje |
-transunion | puntaje | 
-behavioral_network | puntaje | 
-allowed_countries_for_issuer_bank | filtro | 
-match_country_ip_and_issuer_bank | filtro | 
-exclude_country_match_for_issuers | filtro | 
-allowed_countries_for_buyers | filtro | 
-number_of_cards_by_client | filtro | 
-number_of_transactions_by_client | filtro | 
-amount_by_client | filtro | 
-custom | filtro |
+emailage | puntaje 
+kount | puntaje 
+historical | puntaje
+transunion | puntaje 
+behavioral_network | puntaje 
+allowed_countries_for_issuer_bank | filtro 
+match_country_ip_and_issuer_bank | filtro 
+exclude_country_match_for_issuers | filtro 
+allowed_countries_for_buyers | filtro
+number_of_cards_by_client | filtro 
+number_of_transactions_by_client | filtro
+amount_by_client | filtro 
+custom | filtro
+number_of_emails_by_ip | filtro
+number_of_emails_by_card | filtro
+number_of_transactions_by_card | filtro
 CLIENT_IDENTIFIER | filtro restrictivo o permisivo
 IP_ADDRESS | filtro restrictivo o permisivo
 CREDIT_CARD | filtro restrictivo o permisivo
