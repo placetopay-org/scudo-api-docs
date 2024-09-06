@@ -527,8 +527,22 @@ paths:
                             match: false
                             failed: false
                         - action: continue_with_next_rule
-                          name: Numero de correos electrónicos por Ip
+                          name: Número de correos electrónicos por Ip
                           rule_code: number_of_emails_by_ip
+                          type: filter
+                          response:
+                            match: false
+                            failed: false
+                        - action: continue_with_next_rule
+                          name: Número de correos electrónicos por tarjeta
+                          rule_code: number_of_emails_by_card
+                          type: filter
+                          response:
+                            match: false
+                            failed: false
+                        - action: continue_with_next_rule
+                          name: Número de transacciones por tarjeta
+                          rule_code: number_of_transactions_by_card
                           type: filter
                           response:
                             match: false
@@ -1236,6 +1250,20 @@ paths:
                             match: false
                             failed: false
                         - action: continue_with_next_rule
+                          name: Número de correos electrónicos por tarjeta
+                          rule_code: number_of_emails_by_card
+                          type: filter
+                          response:
+                            match: false
+                            failed: false
+                        - action: continue_with_next_rule
+                          name: Número de transacciones por tarjeta
+                          rule_code: number_of_transactions_by_card
+                          type: filter
+                          response:
+                            match: false
+                            failed: false
+                        - action: continue_with_next_rule
                           name: Exclude country match for issuers
                           rule_code: exclude_country_match_for_issuers
                           type: filter
@@ -1641,6 +1669,20 @@ paths:
                             - action: continue_with_next_rule
                               name: Número de correos electrónicos por Ip
                               rule_code: number_of_emails_by_ip
+                              type: filter
+                              response:
+                                match: false
+                                failed: false
+                            - action: continue_with_next_rule
+                              name: Número de correos electrónicos por tarjeta
+                              rule_code: number_of_emails_by_card
+                              type: filter
+                              response:
+                                match: false
+                                failed: false
+                            - action: continue_with_next_rule
+                              name: Número de transacciones por tarjeta
+                              rule_code: number_of_transactions_by_card
                               type: filter
                               response:
                                 match: false
