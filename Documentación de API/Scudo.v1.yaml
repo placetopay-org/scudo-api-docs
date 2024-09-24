@@ -2448,8 +2448,25 @@ components:
       type: object
       description: Intrumento de pago
       properties:
+        type:
+          x-stoplight:
+            id: ezba3qfl61nsq
+          enum:
+            - cash
+            - credit_card
+            - debit_card
+            - wallet
+            - debit_account
+            - checking_account
+            - equity_fund
+          description: Tipo de instrumento con el que se realiza la validación
         card:
           type: object
+          required:
+            - pan_hash
+            - expiration_date
+            - bin
+            - last_4
           properties:
             pan_hash:
               type: string
@@ -2475,11 +2492,6 @@ components:
               description: Últimos 4 digitos de la tarjeta de crédito
               minLength: 4
               maxLength: 4
-          required:
-            - pan_hash
-            - expiration_date
-            - bin
-            - last_4
         kount:
           type: object
           x-stoplight:
@@ -2499,10 +2511,6 @@ components:
           type: string
           description: 'Código del comercio. En Colombia hace referencia al retail-code del comercio, en otros paises hace referencia al codigo único del comercio.'
           nullable: true
-        '':
-          type: string
-          x-stoplight:
-            id: ezba3qfl61nsq
     Status:
       title: Status
       type: object
