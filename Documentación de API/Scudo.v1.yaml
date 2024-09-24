@@ -55,6 +55,11 @@ paths:
           application/json:
             schema:
               type: object
+              required:
+                - payer
+                - payment
+                - ip_address
+                - user_agent
               properties:
                 locale:
                   type: string
@@ -111,12 +116,6 @@ paths:
                     device_app:
                       type: string
                       maxLength: 64
-              required:
-                - payer
-                - payment
-                - instrument
-                - ip_address
-                - user_agent
             examples:
               ejemplo exitoso:
                 value:
