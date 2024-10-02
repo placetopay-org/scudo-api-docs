@@ -380,31 +380,11 @@ paths:
                               type: string
                               description: Tipo de la regla
                             response:
+                              type: object
                               oneOf:
-                                - $ref: '#/components/schemas/Score'
                                 - $ref: '#/components/schemas/Filter'
-                                - type: object
-                                  properties:
-                                    message:
-                                      type: string
-                                    received:
-                                      type: object
-                                      properties:
-                                        currency:
-                                          type: string
-                                        amount:
-                                          type: number
-                                    configured:
-                                      type: object
-                                      properties:
-                                        operator:
-                                          type: string
-                                        currency:
-                                          type: string
-                                        value:
-                                          type: string
-                                    failed:
-                                      type: boolean
+                                - $ref: '#/components/schemas/Score'
+                                - $ref: '#/components/schemas/Details'
               examples:
                 ejemplo exitoso:
                   value:
@@ -1162,27 +1142,7 @@ paths:
                                 - $ref: '#/components/schemas/Score'
                                 - $ref: '#/components/schemas/Filter'
                                 - type: object
-                                  properties:
-                                    failed:
-                                      type: boolean
-                                    message:
-                                      type: string
-                                    received:
-                                      type: object
-                                      properties:
-                                        amount:
-                                          type: number
-                                        currency:
-                                          type: object
-                                    configured:
-                                      type: object
-                                      properties:
-                                        value:
-                                          type: string
-                                        currency:
-                                          type: string
-                                        operator:
-                                          type: string
+                                  $ref: '#/components/schemas/Details'
                               description: Objeto que agrupa el resultado de la regla ejecutada
               examples:
                 successful:
@@ -1585,27 +1545,7 @@ paths:
                                       - $ref: '#/components/schemas/Score'
                                       - $ref: '#/components/schemas/Filter'
                                       - type: object
-                                        properties:
-                                          failed:
-                                            type: boolean
-                                          message:
-                                            type: string
-                                          received:
-                                            type: object
-                                            properties:
-                                              amount:
-                                                type: number
-                                              currency:
-                                                type: object
-                                          configured:
-                                            type: object
-                                            properties:
-                                              value:
-                                                type: string
-                                              currency:
-                                                type: string
-                                              operator:
-                                                type: string
+                                        $ref: '#/components/schemas/Details'
                                     description: Objeto que agrupa el resultado de la regla ejecutada
               examples:
                 successful:
@@ -3633,4 +3573,124 @@ components:
             - $ref: '#/components/schemas/Transunion'
             - $ref: '#/components/schemas/BehavioralNetwork'
           description: Estructura que define los tipos de respuesta de los servicios
+    Details:
+      title: Details
+      x-stoplight:
+        id: a7cczdwd6xvo4
+      type: object
+      description: Respuesta de regla ejecutada con detalles
+      x-examples:
+        instrument_types:
+          failed: true
+          message: Tipo de instrumento de pago no válido
+          details:
+            skipped:
+              type: instrument_types
+              received:
+                instrument_types: cash
+              configured:
+                value:
+                  instrument_types: credit_card
+                operator: equals_to
+        minimum_amount:
+          failed: true
+          message: Monto mínimo no válido
+          details:
+            skipped:
+              type: minimum_amount
+              received:
+                currency: COP
+                minimum_amount: '1200'
+              configured:
+                value:
+                  currency: COP
+                  minimum_amount: '12000'
+                operator: greater_than
+      properties:
+        failed:
+          type: boolean
+          description: Define si la regla falla al intentar ejecutarse
+        message:
+          type: string
+          x-stoplight:
+            id: 0mrxpym2x1mbz
+        details:
+          type: object
+          x-stoplight:
+            id: lgoontqibxhzm
+          nullable: true
+          properties:
+            skipped:
+              $ref: '#/components/schemas/Skipped'
+    Skipped:
+      title: Skipped
+      x-stoplight:
+        id: 4u1sii04mdmol
+      type: object
+      description: Detalles de una regla omitida
+      properties:
+        type:
+          x-stoplight:
+            id: dttn7rukyh8q3
+          enum:
+            - minimum_amount
+            - instrument_types
+        received:
+          type: object
+          $ref: '#/components/schemas/Skipped-values'
+        configured:
+          type: object
+          x-stoplight:
+            id: zd70ygvd36xc0
+          properties:
+            value:
+              type: object
+              $ref: '#/components/schemas/Skipped-values'
+            operator:
+              type: string
+              x-stoplight:
+                id: v7f4k173nqhz0
+      x-examples:
+        minimum_amount:
+          skipped:
+            type: minimum_amount
+            received:
+              currency: COP
+              minimum_amount: '1200'
+            configured:
+              value:
+                currency: COP
+                minimum_amount: '12000'
+              operator: greater_than
+        instrument_types:
+          skipped:
+            type: instrument_types
+            received:
+              instrument_types: cash
+            configured:
+              value:
+                instrument_types: credit_card
+              operator: equals_to
+    Skipped-values:
+      title: Skipped values
+      x-stoplight:
+        id: b99zau0ayg31y
+      type: object
+      description: ''
+      properties:
+        instrument_types:
+          type: string
+          x-stoplight:
+            id: ttqu5xh28xrrf
+          nullable: true
+        currency:
+          type: string
+          x-stoplight:
+            id: xz9z9e2lh4cgt
+          nullable: true
+        minimum_amount:
+          type: string
+          x-stoplight:
+            id: 0fyyrfvwickxp
+          nullable: true
   responses: {}
